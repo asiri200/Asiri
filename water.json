@@ -1,1 +1,327 @@
-
+{
+  "timestamp": "2026-07-24T17:00:15.564Z",
+  "records": [
+    {
+      "date": "2026-06-01",
+      "residencyReading": 46794,
+      "residencyUsage": 0,
+      "athenaReading": 232841,
+      "athenaUsage": 0
+    },
+    {
+      "date": "2026-06-02",
+      "residencyReading": 46796,
+      "residencyUsage": 2,
+      "athenaReading": 232893,
+      "athenaUsage": 52
+    },
+    {
+      "date": "2026-06-03",
+      "residencyReading": 46831,
+      "residencyUsage": 35,
+      "athenaReading": 233012,
+      "athenaUsage": 119
+    },
+    {
+      "date": "2026-06-04",
+      "residencyReading": 46842,
+      "residencyUsage": 11,
+      "athenaReading": 233078,
+      "athenaUsage": 66
+    },
+    {
+      "date": "2026-06-05",
+      "residencyReading": 46850,
+      "residencyUsage": 8,
+      "athenaReading": 233139,
+      "athenaUsage": 61
+    },
+    {
+      "date": "2026-06-06",
+      "residencyReading": 46857,
+      "residencyUsage": 7,
+      "athenaReading": 233214,
+      "athenaUsage": 75
+    },
+    {
+      "date": "2026-06-07",
+      "residencyReading": 46862,
+      "residencyUsage": 5,
+      "athenaReading": 233288,
+      "athenaUsage": 74
+    },
+    {
+      "date": "2026-06-08",
+      "residencyReading": 46865,
+      "residencyUsage": 3,
+      "athenaReading": 233352,
+      "athenaUsage": 64
+    },
+    {
+      "date": "2026-06-09",
+      "residencyReading": 46870,
+      "residencyUsage": 5,
+      "athenaReading": 233420,
+      "athenaUsage": 68
+    },
+    {
+      "date": "2026-06-10",
+      "residencyReading": 46876,
+      "residencyUsage": 6,
+      "athenaReading": 233491,
+      "athenaUsage": 71
+    },
+    {
+      "date": "2026-06-11",
+      "residencyReading": 46880,
+      "residencyUsage": 4,
+      "athenaReading": 233566,
+      "athenaUsage": 75
+    },
+    {
+      "date": "2026-06-12",
+      "residencyReading": 46885,
+      "residencyUsage": 5,
+      "athenaReading": 233651,
+      "athenaUsage": 85
+    },
+    {
+      "date": "2026-06-13",
+      "residencyReading": 46897,
+      "residencyUsage": 12,
+      "athenaReading": 233741,
+      "athenaUsage": 90
+    },
+    {
+      "date": "2026-06-14",
+      "residencyReading": 46903,
+      "residencyUsage": 6,
+      "athenaReading": 233838,
+      "athenaUsage": 97
+    },
+    {
+      "date": "2026-06-15",
+      "residencyReading": 46908,
+      "residencyUsage": 5,
+      "athenaReading": 233909,
+      "athenaUsage": 71
+    },
+    {
+      "date": "2026-06-16",
+      "residencyReading": 46909,
+      "residencyUsage": 1,
+      "athenaReading": 233966,
+      "athenaUsage": 57
+    },
+    {
+      "date": "2026-06-17",
+      "residencyReading": 46919,
+      "residencyUsage": 10,
+      "athenaReading": 234045,
+      "athenaUsage": 79
+    },
+    {
+      "date": "2026-06-18",
+      "residencyReading": 46929,
+      "residencyUsage": 10,
+      "athenaReading": 234115,
+      "athenaUsage": 70
+    },
+    {
+      "date": "2026-06-19",
+      "residencyReading": 46948,
+      "residencyUsage": 19,
+      "athenaReading": 234182,
+      "athenaUsage": 67
+    },
+    {
+      "date": "2026-06-20",
+      "residencyReading": 46953,
+      "residencyUsage": 5,
+      "athenaReading": 234259,
+      "athenaUsage": 77
+    },
+    {
+      "date": "2026-06-21",
+      "residencyReading": 46967,
+      "residencyUsage": 14,
+      "athenaReading": 234342,
+      "athenaUsage": 83
+    },
+    {
+      "date": "2026-06-22",
+      "residencyReading": 46972,
+      "residencyUsage": 5,
+      "athenaReading": 234408,
+      "athenaUsage": 66
+    },
+    {
+      "date": "2026-06-23",
+      "residencyReading": 46981,
+      "residencyUsage": 9,
+      "athenaReading": 234479,
+      "athenaUsage": 71
+    },
+    {
+      "date": "2026-06-24",
+      "residencyReading": 46990,
+      "residencyUsage": 9,
+      "athenaReading": 234548,
+      "athenaUsage": 69
+    },
+    {
+      "date": "2026-06-25",
+      "residencyReading": 46999,
+      "residencyUsage": 9,
+      "athenaReading": 234607,
+      "athenaUsage": 59
+    },
+    {
+      "date": "2026-06-26",
+      "residencyReading": 47004,
+      "residencyUsage": 5,
+      "athenaReading": 234670,
+      "athenaUsage": 63
+    },
+    {
+      "date": "2026-06-27",
+      "residencyReading": 47011,
+      "residencyUsage": 7,
+      "athenaReading": 234734,
+      "athenaUsage": 64
+    },
+    {
+      "date": "2026-06-28",
+      "residencyReading": 47022,
+      "residencyUsage": 11,
+      "athenaReading": 234845,
+      "athenaUsage": 111
+    },
+    {
+      "date": "2026-06-29",
+      "residencyReading": 47027,
+      "residencyUsage": 5,
+      "athenaReading": 234918,
+      "athenaUsage": 73
+    },
+    {
+      "date": "2026-06-30",
+      "residencyReading": 47031,
+      "residencyUsage": 4,
+      "athenaReading": 234980,
+      "athenaUsage": 62
+    },
+    {
+      "date": "2026-07-01",
+      "residencyReading": 47037,
+      "residencyUsage": 6,
+      "athenaReading": 235075,
+      "athenaUsage": 95
+    },
+    {
+      "date": "2026-07-02",
+      "residencyReading": 47041,
+      "residencyUsage": 4,
+      "athenaReading": 235142,
+      "athenaUsage": 67
+    },
+    {
+      "date": "2026-07-03",
+      "residencyReading": 47046,
+      "residencyUsage": 5,
+      "athenaReading": 235200,
+      "athenaUsage": 58
+    },
+    {
+      "date": "2026-07-04",
+      "residencyReading": 47055,
+      "residencyUsage": 9,
+      "athenaReading": 235260,
+      "athenaUsage": 60
+    },
+    {
+      "date": "2026-07-05",
+      "residencyReading": 47062,
+      "residencyUsage": 7,
+      "athenaReading": 235326,
+      "athenaUsage": 66
+    },
+    {
+      "date": "2026-07-06",
+      "residencyReading": 47066,
+      "residencyUsage": 4,
+      "athenaReading": 235381,
+      "athenaUsage": 55
+    },
+    {
+      "date": "2026-07-07",
+      "residencyReading": 47073,
+      "residencyUsage": 7,
+      "athenaReading": 235481,
+      "athenaUsage": 100
+    },
+    {
+      "date": "2026-07-08",
+      "residencyReading": 47080,
+      "residencyUsage": 7,
+      "athenaReading": 235550,
+      "athenaUsage": 69
+    },
+    {
+      "date": "2026-07-09",
+      "residencyReading": 47132,
+      "residencyUsage": 52,
+      "athenaReading": 235611,
+      "athenaUsage": 61
+    },
+    {
+      "date": "2026-07-10",
+      "residencyReading": 47140,
+      "residencyUsage": 8,
+      "athenaReading": 235675,
+      "athenaUsage": 64
+    },
+    {
+      "date": "2026-07-11",
+      "residencyReading": 47149,
+      "residencyUsage": 9,
+      "athenaReading": 235741,
+      "athenaUsage": 66
+    },
+    {
+      "date": "2026-07-12",
+      "residencyReading": 47155,
+      "residencyUsage": 6,
+      "athenaReading": 235837,
+      "athenaUsage": 96
+    },
+    {
+      "date": "2026-07-13",
+      "residencyReading": 47167,
+      "residencyUsage": 12,
+      "athenaReading": 235904,
+      "athenaUsage": 67
+    },
+    {
+      "date": "2026-07-14",
+      "residencyReading": 47176,
+      "residencyUsage": 9,
+      "athenaReading": 235971,
+      "athenaUsage": 67
+    },
+    {
+      "date": "2026-07-15",
+      "residencyReading": 47187,
+      "residencyUsage": 11,
+      "athenaReading": 236033,
+      "athenaUsage": 62
+    },
+    {
+      "date": "2026-07-16",
+      "residencyReading": 47196,
+      "residencyUsage": 9,
+      "athenaReading": 236112,
+      "athenaUsage": 79
+    }
+  ]
+}
