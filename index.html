@@ -292,7 +292,7 @@
             background: white;
             border: 1px solid #dee2e6;
             border-radius: 6px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             min-width: 180px;
             z-index: 1000;
             padding: 4px 0;
@@ -2413,6 +2413,7 @@
             gap: 10px;
             flex-wrap: wrap;
             margin-top: 10px;
+            align-items: center;
         }
         .github-status {
             margin-top: 12px;
@@ -2873,15 +2874,16 @@
                     <h4>🐙 GitHub Sync</h4>
                     <div class="form-group">
                         <label>GitHub Token (classic with repo scope)</label>
-                        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+                        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" onchange="saveGitHubSettings()" />
                     </div>
                     <div class="form-group">
                         <label>Repository (username/repo-name)</label>
-                        <input type="text" id="githubRepo" placeholder="yourusername/mas-athena-data" />
+                        <input type="text" id="githubRepo" placeholder="yourusername/mas-athena-data" onchange="saveGitHubSettings()" />
                     </div>
                     <div class="github-actions">
                         <button class="btn btn-github-push" onclick="pushToGitHub()">📤 Push to GitHub</button>
                         <button class="btn btn-github-pull" onclick="pullFromGitHub()">📥 Pull from GitHub</button>
+                        <button class="btn btn-github btn-sm" onclick="saveGitHubSettings()">💾 Save Settings</button>
                         <label class="auto-sync-toggle">
                             <input type="checkbox" id="autoSyncToggle" onchange="toggleAutoSync()" />
                             🔄 Auto-sync on changes
@@ -2960,11 +2962,13 @@
 
     <script>
         // ============================================================
-        //  GITHUB SYNC ENGINE
+        //  GITHUB SYNC ENGINE — fully integrated
         // ============================================================
         let githubToken = '';
         let githubRepo = '';
         let autoSyncEnabled = false;
+        let syncTimeout = null;
+        let isSyncing = false;
 
         // Load saved GitHub settings
         function loadGitHubSettings() {
@@ -2984,29 +2988,40 @@
                 document.getElementById('autoSyncToggle').checked = true;
                 autoSyncEnabled = true;
             }
+            updateGitHubStatus('Ready. ' + (githubToken && githubRepo ? '✅ Configured.' :
+                'Enter your token and repo to sync.'), 'info');
         }
 
         function saveGitHubSettings() {
             const token = document.getElementById('githubToken').value.trim();
             const repo = document.getElementById('githubRepo').value.trim();
+
+            let changed = false;
             if (token) {
                 githubToken = token;
                 localStorage.setItem('github_token', token);
+                changed = true;
             }
             if (repo) {
                 githubRepo = repo;
                 localStorage.setItem('github_repo', repo);
+                changed = true;
             }
-            setGitHubStatus('Settings saved.', 'success');
+            if (changed) {
+                updateGitHubStatus('✅ Settings saved. ' + (githubToken && githubRepo ?
+                    'Ready to sync.' : 'Please enter both token and repo.'), 'success');
+            } else {
+                updateGitHubStatus('ℹ️ No changes made.', 'info');
+            }
         }
 
         function toggleAutoSync() {
             autoSyncEnabled = document.getElementById('autoSyncToggle').checked;
             localStorage.setItem('github_auto_sync', autoSyncEnabled ? 'true' : 'false');
-            setGitHubStatus(autoSyncEnabled ? 'Auto-sync enabled.' : 'Auto-sync disabled.', 'success');
+            updateGitHubStatus(autoSyncEnabled ? '🔄 Auto-sync enabled.' : '⏸️ Auto-sync disabled.', 'info');
         }
 
-        function setGitHubStatus(message, type = 'info') {
+        function updateGitHubStatus(message, type = 'info') {
             const el = document.getElementById('githubStatus');
             if (!el) return;
             el.className = 'github-status ' + (type === 'success' ? 'success' : type === 'error' ? 'error' : type ===
@@ -3023,18 +3038,25 @@
         }
 
         async function getGitHubFile(path) {
+            if (!githubToken || !githubRepo) return null;
             const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
-            const response = await fetch(url, { headers: getGitHubHeaders() });
-            if (!response.ok) {
-                if (response.status === 404) return null;
-                throw new Error(`GitHub API error: ${response.status} - ${response.statusText}`);
+            try {
+                const response = await fetch(url, { headers: getGitHubHeaders() });
+                if (!response.ok) {
+                    if (response.status === 404) return null;
+                    throw new Error(`GitHub API error: ${response.status} - ${response.statusText}`);
+                }
+                const data = await response.json();
+                const content = atob(data.content);
+                return { content, sha: data.sha };
+            } catch (err) {
+                console.warn('getGitHubFile error:', err);
+                return null;
             }
-            const data = await response.json();
-            const content = atob(data.content);
-            return { content, sha: data.sha };
         }
 
         async function updateGitHubFile(path, content, message) {
+            if (!githubToken || !githubRepo) throw new Error('GitHub not configured.');
             const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
             const existing = await getGitHubFile(path);
             const body = {
@@ -3058,15 +3080,17 @@
         //  PUSH TO GITHUB
         // ============================================================
         async function pushToGitHub() {
+            if (isSyncing) { updateGitHubStatus('⏳ Sync already in progress...', 'syncing'); return; }
             if (!githubToken || !githubRepo) {
                 saveGitHubSettings();
                 if (!githubToken || !githubRepo) {
-                    setGitHubStatus('❌ Please enter your GitHub token and repository.', 'error');
+                    updateGitHubStatus('❌ Please enter your GitHub token and repository.', 'error');
                     return;
                 }
             }
 
-            setGitHubStatus('⏳ Pushing to GitHub...', 'syncing');
+            isSyncing = true;
+            updateGitHubStatus('⏳ Pushing to GitHub...', 'syncing');
 
             try {
                 // Build data objects
@@ -3097,10 +3121,13 @@
                 await updateGitHubFile('technicians.json', JSON.stringify(techsData, null, 2), 'Update technicians');
                 await updateGitHubFile('overrides.json', JSON.stringify(overridesData, null, 2), 'Update overrides');
 
-                setGitHubStatus('✅ Successfully pushed all data to GitHub!', 'success');
+                updateGitHubStatus('✅ Successfully pushed all data to GitHub! ' + new Date().toLocaleTimeString(),
+                'success');
+                isSyncing = false;
             } catch (err) {
-                setGitHubStatus('❌ Push failed: ' + err.message, 'error');
+                updateGitHubStatus('❌ Push failed: ' + err.message, 'error');
                 console.error(err);
+                isSyncing = false;
             }
         }
 
@@ -3108,15 +3135,17 @@
         //  PULL FROM GITHUB
         // ============================================================
         async function pullFromGitHub() {
+            if (isSyncing) { updateGitHubStatus('⏳ Sync already in progress...', 'syncing'); return; }
             if (!githubToken || !githubRepo) {
                 saveGitHubSettings();
                 if (!githubToken || !githubRepo) {
-                    setGitHubStatus('❌ Please enter your GitHub token and repository.', 'error');
+                    updateGitHubStatus('❌ Please enter your GitHub token and repository.', 'error');
                     return;
                 }
             }
 
-            setGitHubStatus('⏳ Pulling from GitHub...', 'syncing');
+            isSyncing = true;
+            updateGitHubStatus('⏳ Pulling from GitHub...', 'syncing');
 
             try {
                 const files = ['database.json', 'water.json', 'users.json', 'technicians.json', 'overrides.json'];
@@ -3125,117 +3154,93 @@
                 for (const file of files) {
                     const result = await getGitHubFile(file);
                     if (result) {
-                        const data = JSON.parse(result.content);
-                        if (data.records !== undefined) {
-                            switch (file) {
-                                case 'database.json':
-                                    if (data.records.length > 0) {
-                                        maintenanceDatabase = data.records;
-                                        localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
-                                        anyLoaded = true;
-                                    }
-                                    break;
-                                case 'water.json':
-                                    if (data.records.length > 0) {
-                                        waterMetricsDatabase = data.records;
-                                        localStorage.setItem('waterMetricsDatabase', JSON.stringify(
-                                        waterMetricsDatabase));
-                                        anyLoaded = true;
-                                    }
-                                    break;
-                                case 'users.json':
-                                    if (data.records.length > 0) {
-                                        // Merge users carefully - don't overwrite current user sessions
-                                        const existingUsers = users.map(u => u.username);
-                                        data.records.forEach(u => {
-                                            if (!existingUsers.includes(u.username)) {
-                                                users.push(u);
-                                            }
-                                        });
-                                        localStorage.setItem('athena_users', JSON.stringify(users));
-                                        anyLoaded = true;
-                                    }
-                                    break;
-                                case 'technicians.json':
-                                    if (data.records.length > 0) {
-                                        saveTechnicians(data.records);
-                                        renderTechnicianList();
-                                        anyLoaded = true;
-                                    }
-                                    break;
-                                case 'overrides.json':
-                                    if (Object.keys(data.records).length > 0) {
-                                        techStatusOverrides = data.records;
-                                        saveTechOverrides();
-                                        anyLoaded = true;
-                                    }
-                                    break;
+                        try {
+                            const data = JSON.parse(result.content);
+                            if (data.records !== undefined) {
+                                switch (file) {
+                                    case 'database.json':
+                                        if (data.records.length > 0) {
+                                            maintenanceDatabase = data.records;
+                                            localStorage.setItem('maintenanceDatabase', JSON.stringify(
+                                                maintenanceDatabase));
+                                            anyLoaded = true;
+                                        }
+                                        break;
+                                    case 'water.json':
+                                        if (data.records.length > 0) {
+                                            waterMetricsDatabase = data.records;
+                                            localStorage.setItem('waterMetricsDatabase', JSON.stringify(
+                                                waterMetricsDatabase));
+                                            anyLoaded = true;
+                                        }
+                                        break;
+                                    case 'users.json':
+                                        if (data.records.length > 0) {
+                                            const existingUsers = users.map(u => u.username);
+                                            data.records.forEach(u => {
+                                                if (!existingUsers.includes(u.username)) {
+                                                    users.push(u);
+                                                }
+                                            });
+                                            localStorage.setItem('athena_users', JSON.stringify(users));
+                                            anyLoaded = true;
+                                        }
+                                        break;
+                                    case 'technicians.json':
+                                        if (data.records.length > 0) {
+                                            saveTechnicians(data.records);
+                                            renderTechnicianList();
+                                            anyLoaded = true;
+                                        }
+                                        break;
+                                    case 'overrides.json':
+                                        if (Object.keys(data.records).length > 0) {
+                                            techStatusOverrides = data.records;
+                                            saveTechOverrides();
+                                            anyLoaded = true;
+                                        }
+                                        break;
+                                }
                             }
+                        } catch (parseErr) {
+                            console.warn('Parse error for ' + file, parseErr);
                         }
                     }
                 }
 
                 if (anyLoaded) {
-                    // Recalculate water usage
                     recalculateAllWaterUsage();
                     localStorage.setItem('waterMetricsDatabase', JSON.stringify(waterMetricsDatabase));
                     triggerAutoBackup();
                     renderSchedule();
                     renderUserList();
                     renderLoginHistory();
-                    setGitHubStatus('✅ Successfully pulled data from GitHub!', 'success');
+                    updateGitHubStatus('✅ Successfully pulled data from GitHub! ' + new Date().toLocaleTimeString(),
+                        'success');
                 } else {
-                    setGitHubStatus('ℹ️ No data found on GitHub. Push first to create the files.', 'info');
+                    updateGitHubStatus('ℹ️ No data found on GitHub. Push first to create the files.', 'info');
                 }
+                isSyncing = false;
             } catch (err) {
-                setGitHubStatus('❌ Pull failed: ' + err.message, 'error');
+                updateGitHubStatus('❌ Pull failed: ' + err.message, 'error');
                 console.error(err);
+                isSyncing = false;
             }
         }
 
         // ============================================================
         //  AUTO-SYNC TRIGGER
         // ============================================================
-        let syncTimeout = null;
-
         function triggerAutoSync() {
             if (!autoSyncEnabled) return;
             if (!githubToken || !githubRepo) return;
+            if (isSyncing) return;
 
             clearTimeout(syncTimeout);
             syncTimeout = setTimeout(() => {
                 pushToGitHub();
-            }, 3000);
+            }, 2000);
         }
-
-        // Override save functions to trigger auto-sync
-        const originalSaveData = saveData;
-        const originalToggleTaskStatus = toggleTaskStatus;
-        const originalDeleteTask = deleteTask;
-        const originalShiftToNextDay = shiftToNextDay;
-        const originalDeleteAllJobs = deleteAllJobs;
-        const originalSaveWaterMetrics = saveWaterMetrics;
-        const originalDeleteWaterRecord = deleteWaterRecord;
-        const originalAddUser = addUser;
-        const originalDeleteUser = deleteUser;
-        const originalAddTechnician = addTechnician;
-        const originalDeleteTechnician = deleteTechnician;
-        const originalEditTechnician = editTechnician;
-        const originalSaveRepairRecord = saveRepairRecord;
-
-        // Patch functions to trigger auto-sync
-        function patchFunction(original, wrapper) {
-            return function(...args) {
-                const result = original.apply(this, args);
-                if (typeof triggerAutoSync === 'function') {
-                    setTimeout(triggerAutoSync, 500);
-                }
-                return result;
-            };
-        }
-
-        // We'll wrap the functions after they're defined in the main script below
-        // We'll set up the patch after all functions are defined
 
         // ============================================================
         //  TECHNICIAN MANAGEMENT
@@ -3688,9 +3693,9 @@
             renderLoginHistory();
             // Show GitHub status
             if (githubToken && githubRepo) {
-                setGitHubStatus('✅ GitHub configured. Ready to sync.', 'success');
+                updateGitHubStatus('✅ GitHub configured. Ready to sync.', 'success');
             } else {
-                setGitHubStatus('ℹ️ Enter your GitHub token and repo to enable sync.', 'info');
+                updateGitHubStatus('ℹ️ Enter your GitHub token and repo to enable sync.', 'info');
             }
         }
 
