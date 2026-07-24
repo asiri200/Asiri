@@ -2874,11 +2874,11 @@
                     <h4>🐙 GitHub Sync</h4>
                     <div class="form-group">
                         <label>GitHub Token (classic with repo scope)</label>
-                        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" onchange="saveGitHubSettings()" />
+                        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" value="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" onchange="saveGitHubSettings()" />
                     </div>
                     <div class="form-group">
                         <label>Repository (username/repo-name)</label>
-                        <input type="text" id="githubRepo" placeholder="yourusername/mas-athena-data" onchange="saveGitHubSettings()" />
+                        <input type="text" id="githubRepo" placeholder="yourusername/mas-athena-data" value="asiri200/Asiri" onchange="saveGitHubSettings()" />
                     </div>
                     <div class="github-actions">
                         <button class="btn btn-github-push" onclick="pushToGitHub()">📤 Push to GitHub</button>
@@ -2889,7 +2889,7 @@
                             🔄 Auto-sync on changes
                         </label>
                     </div>
-                    <div id="githubStatus" class="github-status">Ready. Enter your token and repo to sync.</div>
+                    <div id="githubStatus" class="github-status">Ready. Your GitHub credentials are pre-loaded.</div>
                 </div>
             </div>
 
@@ -2970,26 +2970,46 @@
         let syncTimeout = null;
         let isSyncing = false;
 
-        // Load saved GitHub settings
+        // Load saved GitHub settings (or use defaults)
         function loadGitHubSettings() {
             const savedToken = localStorage.getItem('github_token');
             const savedRepo = localStorage.getItem('github_repo');
             const savedAutoSync = localStorage.getItem('github_auto_sync');
 
-            if (savedToken) {
-                document.getElementById('githubToken').value = savedToken;
+            // Default credentials (pre-filled)
+            const defaultToken = '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';
+            const defaultRepo = 'asiri200/Asiri';
+
+            // If no saved values, use defaults and save them
+            if (!savedToken) {
+                localStorage.setItem('github_token', defaultToken);
+                githubToken = defaultToken;
+            } else {
                 githubToken = savedToken;
             }
-            if (savedRepo) {
-                document.getElementById('githubRepo').value = savedRepo;
+
+            if (!savedRepo) {
+                localStorage.setItem('github_repo', defaultRepo);
+                githubRepo = defaultRepo;
+            } else {
                 githubRepo = savedRepo;
             }
+
+            // Set input values
+            document.getElementById('githubToken').value = githubToken;
+            document.getElementById('githubRepo').value = githubRepo;
+
             if (savedAutoSync === 'true') {
                 document.getElementById('autoSyncToggle').checked = true;
                 autoSyncEnabled = true;
+            } else {
+                // Default auto-sync ON
+                document.getElementById('autoSyncToggle').checked = true;
+                autoSyncEnabled = true;
+                localStorage.setItem('github_auto_sync', 'true');
             }
-            updateGitHubStatus('Ready. ' + (githubToken && githubRepo ? '✅ Configured.' :
-                'Enter your token and repo to sync.'), 'info');
+
+            updateGitHubStatus('✅ GitHub configured. Ready to sync.', 'success');
         }
 
         function saveGitHubSettings() {
@@ -3122,7 +3142,7 @@
                 await updateGitHubFile('overrides.json', JSON.stringify(overridesData, null, 2), 'Update overrides');
 
                 updateGitHubStatus('✅ Successfully pushed all data to GitHub! ' + new Date().toLocaleTimeString(),
-                'success');
+                    'success');
                 isSyncing = false;
             } catch (err) {
                 updateGitHubStatus('❌ Push failed: ' + err.message, 'error');
