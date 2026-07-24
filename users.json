@@ -1,1 +1,23 @@
-
+{
+  "timestamp": "2026-07-24T17:00:15.564Z",
+  "records": [
+    {
+      "username": "user",
+      "password": "123",
+      "role": "user",
+      "created": "2026-07-23T16:20:17.966Z"
+    },
+    {
+      "username": "asiri",
+      "password": "123",
+      "role": "admin",
+      "created": "2026-07-23T16:20:17.970Z"
+    },
+    {
+      "username": "superadmin",
+      "password": "Welcome@123",
+      "role": "admin",
+      "created": "2026-07-23T16:20:17.970Z"
+    }
+  ]
+}
