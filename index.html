@@ -155,59 +155,170 @@
             background: var(--danger);
         }
 
-        /* SYSTEM VIEW TOGGLE (BOTTOM NAV) - SINGLE LINE SCROLLABLE */
-        .system-view-toggle {
+        /* ===== COMBINED TOP NAVIGATION ===== */
+        .top-nav {
             display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
+            gap: 4px;
+            margin-bottom: 16px;
+            background: #e9ecef;
+            padding: 6px 8px;
+            border-radius: var(--radius);
             flex-wrap: nowrap;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
+            align-items: center;
         }
-        .system-view-toggle::-webkit-scrollbar {
+        .top-nav::-webkit-scrollbar {
             height: 4px;
         }
-        .system-view-toggle::-webkit-scrollbar-thumb {
+        .top-nav::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 4px;
         }
 
-        .view-btn {
-            padding: 8px 16px;
-            border: 2px solid #d1d9e6;
-            border-radius: 40px;
-            font-weight: 700;
+        .top-nav .nav-btn {
+            flex: 0 0 auto;
+            padding: 6px 12px;
+            text-align: center;
             background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.2s;
-            color: #1e293b;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             white-space: nowrap;
-            flex-shrink: 0;
         }
-        .view-btn:hover {
-            background: #f8fafc;
-            border-color: #94a3b8;
+        .top-nav .nav-btn:hover {
+            background: #f1f3f5;
         }
-        .view-btn.active-view {
+        .top-nav .nav-btn.active-tab {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .top-nav .nav-btn.overview-tab {
+            border: 2px solid var(--purple);
+            color: var(--purple);
+        }
+        .top-nav .nav-btn.overview-tab.active-tab {
+            background: var(--purple);
+            color: white;
+            border-color: var(--purple);
+        }
+        .top-nav .nav-btn.allocation-tab {
+            border: 2px solid var(--teal);
+            color: var(--teal);
+        }
+        .top-nav .nav-btn.allocation-tab.active-tab {
+            background: var(--teal);
+            color: white;
+            border-color: var(--teal);
+        }
+        .top-nav .nav-btn.roster-tab {
+            border: 2px solid var(--warning);
+            color: #b45309;
+        }
+        .top-nav .nav-btn.roster-tab.active-tab {
+            background: #b45309;
+            color: white;
+            border-color: #b45309;
+        }
+        .top-nav .nav-btn.history-tab {
+            border: 2px solid var(--purple);
+            color: var(--purple);
+        }
+        .top-nav .nav-btn.history-tab.active-tab {
+            background: var(--purple);
+            color: white;
+            border-color: var(--purple);
+        }
+        .top-nav .nav-btn.category-tab {
+            border: 1px solid #d1d9e6;
+        }
+        .top-nav .nav-btn.category-tab.active-tab {
             background: var(--dark);
             color: white;
             border-color: var(--dark);
         }
-        .view-btn.active-view.dashboard-active {
+        /* View buttons */
+        .top-nav .nav-btn.view-btn {
+            border: 2px solid #d1d9e6;
+        }
+        .top-nav .nav-btn.view-btn:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+        .top-nav .nav-btn.view-btn.active-view {
+            background: var(--dark);
+            color: white;
+            border-color: var(--dark);
+        }
+        .top-nav .nav-btn.view-btn.active-view.dashboard-active {
             background: var(--primary);
             border-color: var(--primary);
         }
-        .view-btn.active-view.analytics-active {
+        .top-nav .nav-btn.view-btn.active-view.analytics-active {
             background: var(--purple);
             border-color: var(--purple);
         }
-        .view-btn.active-view.users-active {
+        .top-nav .nav-btn.view-btn.active-view.users-active {
             background: var(--teal);
             border-color: var(--teal);
+        }
+        .top-nav .nav-btn.admin-only {
+            display: none;
+        }
+
+        /* Dropdown wrapper */
+        .dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+        .dropdown-toggle::after {
+            content: " ▼";
+            font-size: 0.65rem;
+            opacity: 0.7;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            min-width: 180px;
+            z-index: 1000;
+            padding: 4px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .dropdown-menu.show {
+            display: block;
+        }
+        .dropdown-menu .nav-btn {
+            display: block;
+            width: 100%;
+            border: none;
+            border-radius: 0;
+            background: white;
+            text-align: left;
+            padding: 8px 16px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+        .dropdown-menu .nav-btn:hover {
+            background: #f1f3f5;
+        }
+        .dropdown-menu .nav-btn.active-tab {
+            background: var(--dark);
+            color: white;
         }
 
         /* PAGES */
@@ -225,93 +336,6 @@
             to {
                 opacity: 1;
             }
-        }
-
-        /* PAGE NAVIGATION TABS (TOP TABS) - SINGLE LINE SCROLLABLE */
-        .page-navigation {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 16px;
-            background: #e9ecef;
-            padding: 6px 8px;
-            border-radius: var(--radius);
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-        }
-        .page-navigation::-webkit-scrollbar {
-            height: 4px;
-        }
-        .page-navigation::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-
-        .nav-tab {
-            flex: 0 0 auto;
-            padding: 6px 12px;
-            text-align: center;
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 0.7rem;
-            white-space: nowrap;
-        }
-        .nav-tab:hover {
-            background: #f1f3f5;
-        }
-        .nav-tab.active-tab {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        .nav-tab.overview-tab {
-            border: 2px solid var(--purple);
-            color: var(--purple);
-        }
-        .nav-tab.overview-tab.active-tab {
-            background: var(--purple);
-            color: white;
-            border-color: var(--purple);
-        }
-        .nav-tab.allocation-tab {
-            border: 2px solid var(--teal);
-            color: var(--teal);
-        }
-        .nav-tab.allocation-tab.active-tab {
-            background: var(--teal);
-            color: white;
-            border-color: var(--teal);
-        }
-        .nav-tab.roster-tab {
-            border: 2px solid var(--warning);
-            color: #b45309;
-        }
-        .nav-tab.roster-tab.active-tab {
-            background: #b45309;
-            color: white;
-            border-color: #b45309;
-        }
-        .nav-tab.category-tab {
-            border: 1px solid #d1d9e6;
-        }
-        .nav-tab.category-tab.active-tab {
-            background: var(--dark);
-            color: white;
-            border-color: var(--dark);
-        }
-        .nav-tab.history-tab {
-            border: 2px solid var(--purple);
-            color: var(--purple);
-        }
-        .nav-tab.history-tab.active-tab {
-            background: var(--purple);
-            color: white;
-            border-color: var(--purple);
         }
 
         /* FILTER BAR */
@@ -2347,6 +2371,114 @@
             background: #f97316;
         }
 
+        /* GITHUB SETTINGS */
+        .github-settings-card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            margin-top: 20px;
+            border-top: 5px solid #24292f;
+        }
+        .github-settings-card h4 {
+            margin: 0 0 16px 0;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .github-settings-card .form-group {
+            margin-bottom: 14px;
+        }
+        .github-settings-card .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .github-settings-card .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+        }
+        .github-settings-card .form-group input:focus {
+            border-color: var(--purple);
+            outline: none;
+        }
+        .github-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .github-status {
+            margin-top: 12px;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+        }
+        .github-status.success {
+            border-left-color: var(--success);
+            background: #f0fdf4;
+        }
+        .github-status.error {
+            border-left-color: var(--danger);
+            background: #fef2f2;
+        }
+        .github-status.syncing {
+            border-left-color: var(--warning);
+            background: #fffbeb;
+        }
+        .github-status .status-detail {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        .btn-github {
+            background: #24292f;
+            color: white;
+        }
+        .btn-github:hover {
+            background: #1b1f24;
+        }
+        .btn-github-push {
+            background: #2ea44f;
+            color: white;
+        }
+        .btn-github-push:hover {
+            background: #22863a;
+        }
+        .btn-github-pull {
+            background: #0366d6;
+            color: white;
+        }
+        .btn-github-pull:hover {
+            background: #0255b3;
+        }
+        .btn-github:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .auto-sync-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+        }
+        .auto-sync-toggle input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
         .footer {
             text-align: center;
             padding: 20px;
@@ -2435,21 +2567,13 @@
                 align-items: stretch;
                 gap: 8px;
             }
-            .page-navigation {
-                flex-wrap: nowrap;
-                overflow-x: auto;
+            .top-nav {
+                gap: 3px;
+                padding: 4px 6px;
             }
-            .nav-tab {
-                min-width: 80px;
-                font-size: 0.65rem;
-                padding: 8px 10px;
-            }
-            .view-btn {
-                padding: 8px 16px;
-                font-size: 0.75rem;
-            }
-            .system-view-toggle {
-                gap: 6px;
+            .top-nav .nav-btn {
+                font-size: 0.6rem;
+                padding: 4px 8px;
             }
             .user-mgmt-container {
                 grid-template-columns: 1fr;
@@ -2486,6 +2610,18 @@
             .modal-box {
                 padding: 20px;
             }
+            .dropdown-menu {
+                min-width: 150px;
+                left: auto;
+                right: 0;
+            }
+            .github-actions {
+                flex-direction: column;
+            }
+            .github-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -2518,41 +2654,42 @@
         </div>
 
         <div class="container">
-            <!-- ===== BOTTOM NAVIGATION (SINGLE LINE) ===== -->
-            <div class="system-view-toggle">
-                <button class="view-btn active-view dashboard-active" id="view-dashboard-btn" onclick="toggleAppMode('dashboard')">📋 Dashboard</button>
-                <button class="view-btn" id="view-analytics-btn" onclick="toggleAppMode('analytics')">📊 Analytics</button>
-                <button class="nav-tab overview-tab active-tab" onclick="switchPage('Today Overview')" id="tab-Overview">🔮 Today's Pending</button>
-                <button class="nav-tab allocation-tab" onclick="switchPage('Next Week Allocation')" id="tab-Allocation">📅 Next Week</button>
-                <button class="nav-tab allocation-tab" onclick="switchPage('Next Month Allocation')" id="tab-MonthAllocation">📅 Next Month</button>
-                <button class="nav-tab roster-tab" onclick="switchPage('Duty Roster')" id="tab-Roster">👷 Today Allocation</button>
-                <button class="nav-tab roster-tab" onclick="switchPage('Monthly Roster')" id="tab-MonthlyRoster">📅 Monthly Roster</button>
-                <button class="nav-tab history-tab" onclick="switchPage('Repair History')" id="tab-RepairHistory">🔧 Repair History</button>
-                <button class="view-btn admin-only" id="view-users-btn" onclick="toggleAppMode('users')">👥 Users</button>
+            <!-- ===== COMBINED TOP NAVIGATION ===== -->
+            <div class="top-nav" id="topNav">
+                <button class="nav-btn view-btn active-view dashboard-active" id="view-dashboard-btn" onclick="toggleAppMode('dashboard')">📋 Dashboard</button>
+                <button class="nav-btn view-btn" id="view-analytics-btn" onclick="toggleAppMode('analytics')">📊 Analytics</button>
+                <button class="nav-btn view-btn admin-only" id="view-users-btn" onclick="toggleAppMode('users')">👥 Users</button>
+
+                <button class="nav-btn overview-tab active-tab" onclick="switchPage('Today Overview')" id="tab-Overview">🔮 Today's Pending</button>
+                <button class="nav-btn allocation-tab" onclick="switchPage('Next Week Allocation')" id="tab-Allocation">📅 Next Week</button>
+                <button class="nav-btn allocation-tab" onclick="switchPage('Next Month Allocation')" id="tab-MonthAllocation">📅 Next Month</button>
+                <button class="nav-btn roster-tab" onclick="switchPage('Duty Roster')" id="tab-Roster">👷 Today Allocation</button>
+                <button class="nav-btn roster-tab" onclick="switchPage('Monthly Roster')" id="tab-MonthlyRoster">📅 Monthly Roster</button>
+                <button class="nav-btn history-tab" onclick="switchPage('Repair History')" id="tab-RepairHistory">🔧 Repair History</button>
+
+                <div class="dropdown-wrapper">
+                    <button class="nav-btn category-tab dropdown-toggle" onclick="toggleCategoryDropdown()">📂 Categories</button>
+                    <div class="dropdown-menu" id="categoryDropdown">
+                        <button class="nav-btn category-tab" onclick="switchPage('Air Conditioner')">❄️ Air Conditioner</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Cold Room\\Refrigerator')">🌡️ Cold Room\Refrigerator</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Electrical')">⚡ Electrical</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Battery System')">🔋 Battery System</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Generator')">⚙️ Generator</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Kitchen')">🍳 Kitchen</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Plumber')">🚰 Plumber</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Laundry')">🧺 Laundry</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Fire Hose Reel/Hydrant')">🚨 Fire Hose Reel/Hydrant</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Fire Detection')">🔥 Fire Detection</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Buggy Cart')">🛒 Buggy Cart</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Outside Light')">💡 Outside Light</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Emergency Light')">🚨 Emergency Light</button>
+                        <button class="nav-btn category-tab" onclick="switchPage('Water Meter Reading')">💧 Water Meter Reading</button>
+                    </div>
+                </div>
             </div>
 
             <!-- ===== DASHBOARD PAGE ===== -->
             <div class="app-page active-page" id="page-dashboard">
-                <!-- TOP TABS (SINGLE LINE) -->
-                <div class="page-navigation" id="pageTabs">
-
-                    <button class="nav-tab category-tab" onclick="switchPage('Air Conditioner')" id="tab-AC">❄️ Air Conditioner</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Cold Room\\Refrigerator')" id="tab-Cold">🌡️ Cold Room\Refrigerator</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Electrical')" id="tab-Elec">⚡ Electrical</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Battery System')" id="tab-Batt">🔋 Battery System</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Generator')" id="tab-Gen">⚙️ Generator</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Kitchen')" id="tab-Kit">🍳 Kitchen</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Plumber')" id="tab-Plum">🚰 Plumb</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Laundry')" id="tab-Lau">🧺 Laundry</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Fire Hose Reel/Hydrant')" id="tab-FireHose">🚨 Fire Hose Reel/Hydrant</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Fire Detection')" id="tab-FireDetect">🔥 Fire Detect</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Buggy Cart')" id="tab-Buggy">🛒 Buggy Cart</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Outside Light')" id="tab-Outdoor">💡 Outside Light</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Emergency Light')" id="tab-Emergency">🚨 Emergency Light</button>
-                    <button class="nav-tab category-tab" onclick="switchPage('Water Meter Reading')" id="tab-WaterMeter">💧 Water Meter Reading</button>
-                </div>
-
-                <!-- FILTER BAR -->
                 <div class="filter-bar" id="filterBar">
                     <div class="filter-controls">
                         <label for="viewDate">📅 Date:</label>
@@ -2565,14 +2702,12 @@
                     </div>
                 </div>
 
-                <!-- ACTION BAR -->
                 <div class="action-bar" id="actionBar">
                     <button class="btn btn-primary btn-sm admin-only" id="addTaskBtn" onclick="toggleForm()">➕ Add</button>
                     <button class="btn btn-info btn-sm admin-only" id="shiftTasksBtn" onclick="shiftToNextDay()">⏩ Shift</button>
                     <button class="btn btn-danger btn-sm admin-only" id="deleteAllBtn" onclick="deleteAllJobs()">🗑️ All</button>
                 </div>
 
-                <!-- FORM -->
                 <div class="form-container" id="taskFormPanel">
                     <h3 id="formTitle">Add Task</h3>
                     <form id="maintenanceForm" onsubmit="saveData(event)">
@@ -2616,7 +2751,6 @@
                     </form>
                 </div>
 
-                <!-- STATS BAR -->
                 <div class="stats-bar" id="statsBar">
                     <div><span class="stat-label">📋</span><br><span class="stat-value" id="currentPageTitle">Today's Pending</span></div>
                     <div><span class="stat-label">📊 Workload</span><br><span class="stat-value" id="totalTasks">0</span></div>
@@ -2624,7 +2758,6 @@
                     <div><span class="stat-label">💾 Backup</span><br><span id="backupTimestamp" class="inline-backup-badge">Syncing...</span></div>
                 </div>
 
-                <!-- SCHEDULE CONTAINER -->
                 <div id="scheduleContainer"></div>
             </div>
 
@@ -2734,6 +2867,28 @@
                     <h4>📋 Login History</h4>
                     <div id="loginHistoryContainer"><div class="empty-state" style="padding:12px;">No history</div></div>
                 </div>
+
+                <!-- GitHub Settings (Admin only) -->
+                <div class="github-settings-card admin-only">
+                    <h4>🐙 GitHub Sync</h4>
+                    <div class="form-group">
+                        <label>GitHub Token (classic with repo scope)</label>
+                        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+                    </div>
+                    <div class="form-group">
+                        <label>Repository (username/repo-name)</label>
+                        <input type="text" id="githubRepo" placeholder="yourusername/mas-athena-data" />
+                    </div>
+                    <div class="github-actions">
+                        <button class="btn btn-github-push" onclick="pushToGitHub()">📤 Push to GitHub</button>
+                        <button class="btn btn-github-pull" onclick="pullFromGitHub()">📥 Pull from GitHub</button>
+                        <label class="auto-sync-toggle">
+                            <input type="checkbox" id="autoSyncToggle" onchange="toggleAutoSync()" />
+                            🔄 Auto-sync on changes
+                        </label>
+                    </div>
+                    <div id="githubStatus" class="github-status">Ready. Enter your token and repo to sync.</div>
+                </div>
             </div>
 
         </div>
@@ -2756,7 +2911,6 @@
                     <label>Equipment:</label>
                     <select id="repairAddEquipment" required>
                         <option value="">Select equipment...</option>
-                        <!-- populated by JS -->
                         <option value="__new__">+ Add new...</option>
                     </select>
                 </div>
@@ -2764,7 +2918,6 @@
                     <label>Location:</label>
                     <select id="repairAddLocation" required>
                         <option value="">Select location...</option>
-                        <!-- populated by JS -->
                         <option value="__new__">+ Add new...</option>
                     </select>
                 </div>
@@ -2794,7 +2947,6 @@
                     <label>Repair Type:</label>
                     <select id="repairAddRepairType">
                         <option value="">Select type...</option>
-                        <!-- populated by JS -->
                         <option value="__new__">+ Add new...</option>
                     </select>
                 </div>
@@ -2808,7 +2960,285 @@
 
     <script>
         // ============================================================
-        //  TECHNICIAN MANAGEMENT (STORAGE & FUNCTIONS)
+        //  GITHUB SYNC ENGINE
+        // ============================================================
+        let githubToken = '';
+        let githubRepo = '';
+        let autoSyncEnabled = false;
+
+        // Load saved GitHub settings
+        function loadGitHubSettings() {
+            const savedToken = localStorage.getItem('github_token');
+            const savedRepo = localStorage.getItem('github_repo');
+            const savedAutoSync = localStorage.getItem('github_auto_sync');
+
+            if (savedToken) {
+                document.getElementById('githubToken').value = savedToken;
+                githubToken = savedToken;
+            }
+            if (savedRepo) {
+                document.getElementById('githubRepo').value = savedRepo;
+                githubRepo = savedRepo;
+            }
+            if (savedAutoSync === 'true') {
+                document.getElementById('autoSyncToggle').checked = true;
+                autoSyncEnabled = true;
+            }
+        }
+
+        function saveGitHubSettings() {
+            const token = document.getElementById('githubToken').value.trim();
+            const repo = document.getElementById('githubRepo').value.trim();
+            if (token) {
+                githubToken = token;
+                localStorage.setItem('github_token', token);
+            }
+            if (repo) {
+                githubRepo = repo;
+                localStorage.setItem('github_repo', repo);
+            }
+            setGitHubStatus('Settings saved.', 'success');
+        }
+
+        function toggleAutoSync() {
+            autoSyncEnabled = document.getElementById('autoSyncToggle').checked;
+            localStorage.setItem('github_auto_sync', autoSyncEnabled ? 'true' : 'false');
+            setGitHubStatus(autoSyncEnabled ? 'Auto-sync enabled.' : 'Auto-sync disabled.', 'success');
+        }
+
+        function setGitHubStatus(message, type = 'info') {
+            const el = document.getElementById('githubStatus');
+            if (!el) return;
+            el.className = 'github-status ' + (type === 'success' ? 'success' : type === 'error' ? 'error' : type ===
+                'syncing' ? 'syncing' : '');
+            el.innerHTML = message;
+        }
+
+        function getGitHubHeaders() {
+            return {
+                'Authorization': 'token ' + githubToken,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            };
+        }
+
+        async function getGitHubFile(path) {
+            const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
+            const response = await fetch(url, { headers: getGitHubHeaders() });
+            if (!response.ok) {
+                if (response.status === 404) return null;
+                throw new Error(`GitHub API error: ${response.status} - ${response.statusText}`);
+            }
+            const data = await response.json();
+            const content = atob(data.content);
+            return { content, sha: data.sha };
+        }
+
+        async function updateGitHubFile(path, content, message) {
+            const url = `https://api.github.com/repos/${githubRepo}/contents/${path}`;
+            const existing = await getGitHubFile(path);
+            const body = {
+                message: message || `Update ${path}`,
+                content: btoa(unescape(encodeURIComponent(content))),
+                sha: existing ? existing.sha : undefined
+            };
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: getGitHubHeaders(),
+                body: JSON.stringify(body)
+            });
+            if (!response.ok) {
+                const err = await response.text();
+                throw new Error(`GitHub upload failed: ${response.status} - ${err}`);
+            }
+            return await response.json();
+        }
+
+        // ============================================================
+        //  PUSH TO GITHUB
+        // ============================================================
+        async function pushToGitHub() {
+            if (!githubToken || !githubRepo) {
+                saveGitHubSettings();
+                if (!githubToken || !githubRepo) {
+                    setGitHubStatus('❌ Please enter your GitHub token and repository.', 'error');
+                    return;
+                }
+            }
+
+            setGitHubStatus('⏳ Pushing to GitHub...', 'syncing');
+
+            try {
+                // Build data objects
+                const dbData = {
+                    timestamp: new Date().toISOString(),
+                    records: maintenanceDatabase
+                };
+                const waterData = {
+                    timestamp: new Date().toISOString(),
+                    records: waterMetricsDatabase
+                };
+                const usersData = {
+                    timestamp: new Date().toISOString(),
+                    records: users
+                };
+                const techsData = {
+                    timestamp: new Date().toISOString(),
+                    records: getTechnicians()
+                };
+                const overridesData = {
+                    timestamp: new Date().toISOString(),
+                    records: techStatusOverrides
+                };
+
+                await updateGitHubFile('database.json', JSON.stringify(dbData, null, 2), 'Update database');
+                await updateGitHubFile('water.json', JSON.stringify(waterData, null, 2), 'Update water metrics');
+                await updateGitHubFile('users.json', JSON.stringify(usersData, null, 2), 'Update users');
+                await updateGitHubFile('technicians.json', JSON.stringify(techsData, null, 2), 'Update technicians');
+                await updateGitHubFile('overrides.json', JSON.stringify(overridesData, null, 2), 'Update overrides');
+
+                setGitHubStatus('✅ Successfully pushed all data to GitHub!', 'success');
+            } catch (err) {
+                setGitHubStatus('❌ Push failed: ' + err.message, 'error');
+                console.error(err);
+            }
+        }
+
+        // ============================================================
+        //  PULL FROM GITHUB
+        // ============================================================
+        async function pullFromGitHub() {
+            if (!githubToken || !githubRepo) {
+                saveGitHubSettings();
+                if (!githubToken || !githubRepo) {
+                    setGitHubStatus('❌ Please enter your GitHub token and repository.', 'error');
+                    return;
+                }
+            }
+
+            setGitHubStatus('⏳ Pulling from GitHub...', 'syncing');
+
+            try {
+                const files = ['database.json', 'water.json', 'users.json', 'technicians.json', 'overrides.json'];
+                let anyLoaded = false;
+
+                for (const file of files) {
+                    const result = await getGitHubFile(file);
+                    if (result) {
+                        const data = JSON.parse(result.content);
+                        if (data.records !== undefined) {
+                            switch (file) {
+                                case 'database.json':
+                                    if (data.records.length > 0) {
+                                        maintenanceDatabase = data.records;
+                                        localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
+                                        anyLoaded = true;
+                                    }
+                                    break;
+                                case 'water.json':
+                                    if (data.records.length > 0) {
+                                        waterMetricsDatabase = data.records;
+                                        localStorage.setItem('waterMetricsDatabase', JSON.stringify(
+                                        waterMetricsDatabase));
+                                        anyLoaded = true;
+                                    }
+                                    break;
+                                case 'users.json':
+                                    if (data.records.length > 0) {
+                                        // Merge users carefully - don't overwrite current user sessions
+                                        const existingUsers = users.map(u => u.username);
+                                        data.records.forEach(u => {
+                                            if (!existingUsers.includes(u.username)) {
+                                                users.push(u);
+                                            }
+                                        });
+                                        localStorage.setItem('athena_users', JSON.stringify(users));
+                                        anyLoaded = true;
+                                    }
+                                    break;
+                                case 'technicians.json':
+                                    if (data.records.length > 0) {
+                                        saveTechnicians(data.records);
+                                        renderTechnicianList();
+                                        anyLoaded = true;
+                                    }
+                                    break;
+                                case 'overrides.json':
+                                    if (Object.keys(data.records).length > 0) {
+                                        techStatusOverrides = data.records;
+                                        saveTechOverrides();
+                                        anyLoaded = true;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                if (anyLoaded) {
+                    // Recalculate water usage
+                    recalculateAllWaterUsage();
+                    localStorage.setItem('waterMetricsDatabase', JSON.stringify(waterMetricsDatabase));
+                    triggerAutoBackup();
+                    renderSchedule();
+                    renderUserList();
+                    renderLoginHistory();
+                    setGitHubStatus('✅ Successfully pulled data from GitHub!', 'success');
+                } else {
+                    setGitHubStatus('ℹ️ No data found on GitHub. Push first to create the files.', 'info');
+                }
+            } catch (err) {
+                setGitHubStatus('❌ Pull failed: ' + err.message, 'error');
+                console.error(err);
+            }
+        }
+
+        // ============================================================
+        //  AUTO-SYNC TRIGGER
+        // ============================================================
+        let syncTimeout = null;
+
+        function triggerAutoSync() {
+            if (!autoSyncEnabled) return;
+            if (!githubToken || !githubRepo) return;
+
+            clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => {
+                pushToGitHub();
+            }, 3000);
+        }
+
+        // Override save functions to trigger auto-sync
+        const originalSaveData = saveData;
+        const originalToggleTaskStatus = toggleTaskStatus;
+        const originalDeleteTask = deleteTask;
+        const originalShiftToNextDay = shiftToNextDay;
+        const originalDeleteAllJobs = deleteAllJobs;
+        const originalSaveWaterMetrics = saveWaterMetrics;
+        const originalDeleteWaterRecord = deleteWaterRecord;
+        const originalAddUser = addUser;
+        const originalDeleteUser = deleteUser;
+        const originalAddTechnician = addTechnician;
+        const originalDeleteTechnician = deleteTechnician;
+        const originalEditTechnician = editTechnician;
+        const originalSaveRepairRecord = saveRepairRecord;
+
+        // Patch functions to trigger auto-sync
+        function patchFunction(original, wrapper) {
+            return function(...args) {
+                const result = original.apply(this, args);
+                if (typeof triggerAutoSync === 'function') {
+                    setTimeout(triggerAutoSync, 500);
+                }
+                return result;
+            };
+        }
+
+        // We'll wrap the functions after they're defined in the main script below
+        // We'll set up the patch after all functions are defined
+
+        // ============================================================
+        //  TECHNICIAN MANAGEMENT
         // ============================================================
         const TECH_STORAGE_KEY = 'athena_technicians';
 
@@ -2870,6 +3300,7 @@
             renderTechnicianList();
             renderSchedule();
             setTimeout(() => msgEl.textContent = '', 3000);
+            triggerAutoSync();
         }
 
         function editTechnician(oldName) {
@@ -2895,6 +3326,7 @@
             triggerAutoBackup();
             renderTechnicianList();
             renderSchedule();
+            triggerAutoSync();
         }
 
         function deleteTechnician(name) {
@@ -2904,6 +3336,7 @@
             saveTechnicians(techs);
             renderTechnicianList();
             renderSchedule();
+            triggerAutoSync();
         }
 
         // ============================================================
@@ -3005,6 +3438,7 @@
             saveTechOverrides();
             closeStatusPopup();
             renderSchedule();
+            triggerAutoSync();
         }
 
         function getTechnicianStatus(tech, dateStr) {
@@ -3047,6 +3481,7 @@
             }
             saveTechOverrides();
             renderSchedule();
+            triggerAutoSync();
         }
 
         function toggleTechStatus(event, tech, dateStr) {
@@ -3064,6 +3499,7 @@
             techStatusOverrides = {};
             saveTechOverrides();
             renderSchedule();
+            triggerAutoSync();
         }
 
         // ============================================================
@@ -3120,7 +3556,8 @@
             const user = users.find(u => u.username === username);
             if (user) { user.role = newRole;
                 saveUsers();
-                renderUserList(); }
+                renderUserList();
+                triggerAutoSync(); }
         }
 
         function renderLoginHistory() {
@@ -3153,6 +3590,7 @@
             msgEl.style.color = 'var(--success)';
             renderUserList();
             setTimeout(() => msgEl.textContent = '', 3000);
+            triggerAutoSync();
         }
 
         function deleteUser(username) {
@@ -3161,6 +3599,7 @@
             users = users.filter(u => u.username !== username);
             saveUsers();
             renderUserList();
+            triggerAutoSync();
         }
 
         // ============================================================
@@ -3182,6 +3621,7 @@
                 document.getElementById('appMain').style.display = 'block';
                 addLoginRecord(user, found.role);
                 applyRole();
+                loadGitHubSettings();
                 initApp();
                 return;
             }
@@ -3222,7 +3662,6 @@
         let rosterMonth = new Date().getMonth();
         let rosterYear = new Date().getFullYear();
 
-        // Ensure tasks have repair fields
         maintenanceDatabase.forEach(t => {
             if (!t.repairDate) t.repairDate = '';
             if (!t.repairType) t.repairType = '';
@@ -3247,6 +3686,12 @@
             renderSchedule();
             renderUserList();
             renderLoginHistory();
+            // Show GitHub status
+            if (githubToken && githubRepo) {
+                setGitHubStatus('✅ GitHub configured. Ready to sync.', 'success');
+            } else {
+                setGitHubStatus('ℹ️ Enter your GitHub token and repo to enable sync.', 'info');
+            }
         }
 
         function updateLiveClock() {
@@ -3340,7 +3785,7 @@
             document.querySelectorAll('.app-page').forEach(p => p.classList.remove('active-page'));
             document.getElementById(`page-${mode}`).classList.add('active-page');
 
-            document.querySelectorAll('.view-btn').forEach(b => {
+            document.querySelectorAll('.nav-btn.view-btn').forEach(b => {
                 b.classList.remove('active-view', 'dashboard-active', 'analytics-active', 'users-active');
             });
             const btn = document.getElementById(`view-${mode}-btn`);
@@ -3360,7 +3805,13 @@
         function switchPage(pageName) {
             currentPage = pageName;
 
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active-tab'));
+            document.querySelectorAll('.top-nav .nav-btn').forEach(t => {
+                if (!t.classList.contains('view-btn') && !t.closest('.dropdown-wrapper')) {
+                    t.classList.remove('active-tab');
+                }
+            });
+            document.querySelectorAll('.dropdown-menu .nav-btn').forEach(t => t.classList.remove('active-tab'));
+
             const mapping = {
                 'Today Overview': 'tab-Overview',
                 'Next Week Allocation': 'tab-Allocation',
@@ -3438,9 +3889,23 @@
                 document.getElementById('formTitle').innerText = `Add ${pageName}`;
             }
 
+            document.getElementById('categoryDropdown').classList.remove('show');
             hideForm();
             renderSchedule();
         }
+
+        // ===== DROPDOWN TOGGLE =====
+        function toggleCategoryDropdown() {
+            const menu = document.getElementById('categoryDropdown');
+            menu.classList.toggle('show');
+        }
+
+        document.addEventListener('click', function(e) {
+            const wrapper = document.querySelector('.dropdown-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                document.getElementById('categoryDropdown').classList.remove('show');
+            }
+        });
 
         function toggleForm() {
             if (currentRole !== 'admin') return alert("Admin only");
@@ -3519,6 +3984,7 @@
             triggerAutoBackup();
             alert('✅ Water metrics saved');
             renderSchedule();
+            triggerAutoSync();
         }
 
         function deleteWaterRecord(dateKey) {
@@ -3528,6 +3994,7 @@
             localStorage.setItem('waterMetricsDatabase', JSON.stringify(waterMetricsDatabase));
             triggerAutoBackup();
             renderSchedule();
+            triggerAutoSync();
         }
 
         function startEditWater(dateKey) { editingWaterRecord = dateKey;
@@ -3553,6 +4020,7 @@
             }
             editingWaterRecord = null;
             renderSchedule();
+            triggerAutoSync();
         }
 
         // ============================================================
@@ -4699,25 +5167,21 @@
         };
 
         function renderRepairHistory(container) {
-            // Get all unique repair types
             const repairTypes = new Set();
             maintenanceDatabase.forEach(t => {
                 if (t.repairType && t.repairType.trim()) repairTypes.add(t.repairType.trim());
             });
             const repairTypeOptions = ['All', ...Array.from(repairTypes).sort()];
 
-            // Get all categories
             const allCategories = new Set();
             maintenanceDatabase.forEach(t => allCategories.add(t.category));
 
-            // Get all distinct equipment names for dropdown
             const allEquipment = new Set();
             maintenanceDatabase.forEach(t => {
                 if (t.equipment && t.equipment.trim()) allEquipment.add(t.equipment.trim());
             });
             const equipmentOptions = ['All', ...Array.from(allEquipment).sort()];
 
-            // Stats
             const totalJobs = maintenanceDatabase.length;
             const withRepair = maintenanceDatabase.filter(t => t.repairDate && t.repairDate.trim()).length;
             const withoutRepair = totalJobs - withRepair;
@@ -4798,10 +5262,8 @@
                             <tbody id="repairTableBody">
                     `;
 
-            // Get data with filters
             let data = [...maintenanceDatabase];
 
-            // Apply filters - read directly from DOM for reliability
             const fromDate = document.getElementById('repairFromDate')?.value || '';
             const toDate = document.getElementById('repairToDate')?.value || '';
             const catFilter = document.getElementById('repairCategoryFilter')?.value || 'all';
@@ -4825,7 +5287,6 @@
                 });
             }
 
-            // Sort by date (most recent first)
             data.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
             const isAdmin = currentRole === 'admin';
@@ -4894,7 +5355,6 @@
 
             container.innerHTML = html;
 
-            // Add event listener for "Add New Type" option
             document.querySelectorAll('.repair-type-select').forEach(sel => {
                 sel.addEventListener('change', function() {
                     if (this.value === '__new__') {
@@ -4915,9 +5375,7 @@
                 });
             });
 
-            // Populate technician dropdown in modal (if visible)
             populateTechDropdown();
-            // Show/hide admin button
             const addBtn = document.querySelector('.repair-filter-bar .btn-success.admin-only');
             if (addBtn) {
                 addBtn.style.display = isAdmin ? 'inline-flex' : 'none';
@@ -4925,10 +5383,9 @@
         }
 
         // ============================================================
-        //  REPAIR ADD MODAL FUNCTIONS - WITH DROPDOWNS
+        //  REPAIR ADD MODAL FUNCTIONS
         // ============================================================
         function populateRepairDropdowns() {
-            // Equipment
             const equipSelect = document.getElementById('repairAddEquipment');
             if (!equipSelect) return;
             const equipSet = new Set(maintenanceDatabase.map(t => t.equipment).filter(Boolean));
@@ -4938,7 +5395,6 @@
             });
             equipSelect.innerHTML += '<option value="__new__">+ Add new...</option>';
 
-            // Location
             const locSelect = document.getElementById('repairAddLocation');
             if (!locSelect) return;
             const locSet = new Set(maintenanceDatabase.map(t => t.location).filter(Boolean));
@@ -4948,7 +5404,6 @@
             });
             locSelect.innerHTML += '<option value="__new__">+ Add new...</option>';
 
-            // Repair Type
             const typeSelect = document.getElementById('repairAddRepairType');
             if (!typeSelect) return;
             const typeSet = new Set(maintenanceDatabase.map(t => t.repairType).filter(Boolean));
@@ -4962,17 +5417,13 @@
         function openRepairAddModal() {
             if (currentRole !== 'admin') { alert("Admin only"); return; }
             document.getElementById('repairAddModal').classList.add('active');
-            // Set default date to today
             const today = getTodayString();
             document.getElementById('repairAddDate').value = today;
-            // Clear form
             document.getElementById('repairAddDetails').value = '';
             document.getElementById('repairAddRepairDate').value = '';
             document.getElementById('repairAddPriority').value = 'low';
-            // Populate dropdowns
             populateRepairDropdowns();
             populateTechDropdown();
-            // Reset selects to default empty
             document.getElementById('repairAddEquipment').value = '';
             document.getElementById('repairAddLocation').value = '';
             document.getElementById('repairAddRepairType').value = '';
@@ -5001,7 +5452,6 @@
             let location = document.getElementById('repairAddLocation').value;
             let repairType = document.getElementById('repairAddRepairType').value;
 
-            // Handle "__new__" selections
             if (equipment === '__new__') {
                 const newVal = prompt('Enter new equipment name:');
                 if (!newVal || !newVal.trim()) return;
@@ -5050,13 +5500,13 @@
             closeRepairAddModal();
             renderSchedule();
             alert('✅ Repair record added successfully.');
+            triggerAutoSync();
         }
 
         // ============================================================
-        //  DEDICATED REPAIR HISTORY EXPORT - creates new XL sheet
+        //  DEDICATED REPAIR HISTORY EXPORT
         // ============================================================
         function exportRepairHistoryToExcel() {
-            // Get filtered data using the same logic as renderRepairHistory
             const fromDate = document.getElementById('repairFromDate')?.value || '';
             const toDate = document.getElementById('repairToDate')?.value || '';
             const catFilter = document.getElementById('repairCategoryFilter')?.value || 'all';
@@ -5086,10 +5536,7 @@
                 return;
             }
 
-            // Create workbook with a dedicated "Repair History" sheet
             const wb = XLSX.utils.book_new();
-
-            // Prepare data: include all relevant fields
             const exportData = data.map(task => ({
                 'Date': task.date || '',
                 'ID': task.id || '',
@@ -5105,23 +5552,13 @@
             }));
 
             const ws = XLSX.utils.json_to_sheet(exportData);
-            // Set column widths for better readability
             ws['!cols'] = [
-                { wch: 12 }, // Date
-                { wch: 10 }, // ID
-                { wch: 20 }, // Equipment
-                { wch: 18 }, // Category
-                { wch: 18 }, // Location
-                { wch: 16 }, // Technician
-                { wch: 30 }, // Details
-                { wch: 10 }, // Priority
-                { wch: 12 }, // Status
-                { wch: 14 }, // Repair Date
-                { wch: 18 } // Repair Type
+                { wch: 12 }, { wch: 10 }, { wch: 20 }, { wch: 18 },
+                { wch: 18 }, { wch: 16 }, { wch: 30 }, { wch: 10 },
+                { wch: 12 }, { wch: 14 }, { wch: 18 }
             ];
             XLSX.utils.book_append_sheet(wb, ws, "Repair History");
 
-            // Optionally include other sheets for completeness
             if (waterMetricsDatabase.length > 0) {
                 const wsWater = XLSX.utils.json_to_sheet(waterMetricsDatabase);
                 XLSX.utils.book_append_sheet(wb, wsWater, "Water");
@@ -5145,7 +5582,6 @@
         }
 
         function applyRepairFilters() {
-            // Store filter values
             repairFilter.fromDate = document.getElementById('repairFromDate')?.value || '';
             repairFilter.toDate = document.getElementById('repairToDate')?.value || '';
             repairFilter.category = document.getElementById('repairCategoryFilter')?.value || 'all';
@@ -5216,10 +5652,11 @@
             }
 
             renderSchedule();
+            triggerAutoSync();
         }
 
         // ============================================================
-        //  ENHANCED EXPORT - respects Repair History filters
+        //  ENHANCED EXPORT
         // ============================================================
         function exportDatabaseToExcel() {
             if (maintenanceDatabase.length === 0 && waterMetricsDatabase.length === 0) {
@@ -5228,11 +5665,9 @@
             }
             const wb = XLSX.utils.book_new();
 
-            // ----- Maintenance sheet -----
             let exportData = [];
 
             if (currentPage === 'Repair History') {
-                // Use the same filters as in renderRepairHistory
                 const fromDate = document.getElementById('repairFromDate')?.value || '';
                 const toDate = document.getElementById('repairToDate')?.value || '';
                 const catFilter = document.getElementById('repairCategoryFilter')?.value || 'all';
@@ -5262,19 +5697,16 @@
             }
 
             if (exportData.length > 0) {
-                // Remove internal id if you want, but keep it
                 const clean = exportData.map(({ /* id, */ ...rest }) => rest);
                 const ws = XLSX.utils.json_to_sheet(clean);
                 XLSX.utils.book_append_sheet(wb, ws, "Maintenance");
             }
 
-            // ----- Water sheet (always full) -----
             if (waterMetricsDatabase.length > 0) {
                 const ws = XLSX.utils.json_to_sheet(waterMetricsDatabase);
                 XLSX.utils.book_append_sheet(wb, ws, "Water");
             }
 
-            // ----- TechOverrides sheet -----
             const overrideEntries = Object.entries(techStatusOverrides).map(([key, value]) => {
                 const [tech, date] = key.split('||');
                 return { Technician: tech, Date: date, Status: value };
@@ -5284,7 +5716,6 @@
                 XLSX.utils.book_append_sheet(wb, ws, "TechOverrides");
             }
 
-            // ----- Technicians sheet -----
             const techs = getTechnicians();
             if (techs.length > 0) {
                 const ws = XLSX.utils.json_to_sheet(techs.map(t => ({ Technician: t })));
@@ -5310,6 +5741,7 @@
             localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
             triggerAutoBackup();
             renderSchedule();
+            triggerAutoSync();
         }
 
         // ============================================================
@@ -5361,6 +5793,7 @@
             triggerAutoBackup();
             hideForm();
             renderSchedule();
+            triggerAutoSync();
         }
 
         function toggleTaskStatus(id) {
@@ -5371,6 +5804,7 @@
                 localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
                 triggerAutoBackup();
                 renderSchedule();
+                triggerAutoSync();
             }
         }
 
@@ -5398,6 +5832,7 @@
             localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
             triggerAutoBackup();
             renderSchedule();
+            triggerAutoSync();
         }
 
         function shiftToNextDay() {
@@ -5419,6 +5854,7 @@
                 triggerAutoBackup();
                 alert(`✅ ${count} tasks shifted to ${nextDate} with HIGH priority!`);
                 renderSchedule();
+                triggerAutoSync();
             } else { alert("No pending tasks to shift."); }
         }
 
@@ -5433,6 +5869,7 @@
             triggerAutoBackup();
             renderSchedule();
             alert(`✅ Deleted ${total} jobs.`);
+            triggerAutoSync();
         }
 
         // ============================================================
@@ -5871,6 +6308,7 @@
             if (e.key === 'Escape') {
                 closeStatusPopup();
                 closeRepairAddModal();
+                document.getElementById('categoryDropdown').classList.remove('show');
             }
             if (e.key === 'Enter' && document.getElementById('loginOverlay') && !document.getElementById('loginOverlay')
                 .classList.contains('hidden')) {
@@ -5878,7 +6316,6 @@
             }
         });
 
-        // Close modal on overlay click (outside box)
         document.addEventListener('click', (e) => {
             const modal = document.getElementById('repairAddModal');
             if (modal && e.target === modal) {
