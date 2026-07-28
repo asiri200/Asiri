@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-28T16:23:33.361Z",
+  "timestamp": "2026-07-28T16:33:24.556Z",
   "records": [
     {
       "date": "2026-06-01",
@@ -294,34 +294,6 @@
       "residencyUsage": 6,
       "athenaReading": 235837,
       "athenaUsage": 96
-    },
-    {
-      "date": "2026-07-13",
-      "residencyReading": 47167,
-      "residencyUsage": 12,
-      "athenaReading": 235904,
-      "athenaUsage": 67
-    },
-    {
-      "date": "2026-07-14",
-      "residencyReading": 47176,
-      "residencyUsage": 9,
-      "athenaReading": 235971,
-      "athenaUsage": 67
-    },
-    {
-      "date": "2026-07-15",
-      "residencyReading": 47187,
-      "residencyUsage": 11,
-      "athenaReading": 236033,
-      "athenaUsage": 62
-    },
-    {
-      "date": "2026-07-16",
-      "residencyReading": 47196,
-      "residencyUsage": 9,
-      "athenaReading": 236112,
-      "athenaUsage": 79
     }
   ]
 }
