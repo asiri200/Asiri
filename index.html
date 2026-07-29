@@ -588,6 +588,10 @@
         .btn-github-pull:hover {
             background: #0255b3;
         }
+        .btn-github-pull:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
         .form-container {
             background: white;
@@ -2867,7 +2871,7 @@
                         <input type="date" id="viewDate" onchange="renderSchedule()" />
                     </div>
                     <div class="toolbar-actions">
-                        <button class="btn btn-github-pull btn-sm" onclick="loadFromGitHubExcel(false)">📥 Load from GitHub</button>
+                        <button class="btn btn-github-pull btn-sm" id="loadFromGitHubBtn" onclick="loadFromGitHubExcel(false)">📥 Load from GitHub</button>
                         <input type="file" id="excelFileInput" accept=".xlsx,.xls" style="display:none;" onchange="importExcelData(event, true)" />
                         <button class="btn btn-import btn-sm" onclick="document.getElementById('excelFileInput').click()">📥 Import</button>
                         <button class="btn btn-export btn-sm" onclick="exportDatabaseToExcel()">📤 Export</button>
@@ -3147,9 +3151,7 @@
 
     <script>
         // ============================================================
-        //  COMPLETE JAVASCRIPT – NO ONEDRIVE, AUTO-LOAD + AUTO-SAVE AFTER 20s
-        //  NEW ADMIN USERS ADDED
-        //  GITHUB EXCEL URL: https://github.com/asiri200/Asiri/blob/4110797fce236011d89249b61a05e827179b2771/MAS_Athena_Export_2026-07-28%20(2).xlsx
+        //  COMPLETE JAVASCRIPT – FIXED AUTO-LOAD FROM GITHUB
         // ============================================================
 
         // ---------- GITHUB SYNC ENGINE ----------
@@ -3431,8 +3433,9 @@
             syncTimeout = setTimeout(() => { pushToGitHub(); }, 3000);
         }
 
-        // ---------- LOAD FROM GITHUB EXCEL (with silent mode and auto-save after 20s) ----------
+        // ---------- LOAD FROM GITHUB EXCEL (FIXED URL & AUTO-LOAD) ----------
         let autoSaveTimer = null;
+        let autoLoadAttempted = false;
 
         async function loadFromGitHubExcel(silent = true) {
             if (!silent && currentRole !== 'admin') {
@@ -3440,10 +3443,10 @@
                 return;
             }
 
-            // The exact raw URL from the user's link
+            // CORRECT raw URL with URL-encoded file name
             const url = 'https://raw.githubusercontent.com/asiri200/Asiri/4110797fce236011d89249b61a05e827179b2771/MAS_Athena_Export_2026-07-28%20(2).xlsx';
 
-            const btn = !silent ? document.querySelector('.btn-github-pull') : null;
+            const btn = !silent ? document.getElementById('loadFromGitHubBtn') : null;
             const originalText = btn ? btn.textContent : '📥 Load from GitHub';
 
             try {
@@ -3452,11 +3455,17 @@
                     btn.disabled = true;
                 }
 
+                if (!silent) {
+                    document.getElementById('backupTimestamp').innerText = '📥 Loading from GitHub...';
+                } else {
+                    document.getElementById('backupTimestamp').innerText = '📥 Auto-loading...';
+                }
+
                 console.log('Fetching Excel from GitHub...', url);
                 const response = await fetch(url);
 
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const arrayBuffer = await response.arrayBuffer();
@@ -3471,19 +3480,18 @@
                 });
 
                 const event = { target: { files: [file] } };
-                // IMPORTANT: auto-load (silent=true) does NOT save to localStorage
+                // Auto-load (silent) does NOT save to localStorage
                 importExcelData(event, silent ? false : true);
 
                 if (!silent) {
                     alert('✅ Excel file loaded successfully from GitHub!');
+                    document.getElementById('backupTimestamp').innerText = '✅ Loaded from GitHub';
                 } else {
-                    document.getElementById('backupTimestamp').innerText = '📥 Auto-loaded from GitHub';
-                    // After loading, schedule auto-save to IndexedDB and possibly push to GitHub after 20 seconds
+                    document.getElementById('backupTimestamp').innerText = '✅ Auto-loaded';
+                    // Schedule auto-save after 20 seconds
                     if (autoSaveTimer) clearTimeout(autoSaveTimer);
                     autoSaveTimer = setTimeout(() => {
-                        // Backup to IndexedDB
                         triggerAutoBackup();
-                        // Also, if autoSync is enabled, push to GitHub
                         if (autoSyncEnabled && githubToken && githubRepo) {
                             pushToGitHub();
                         }
@@ -3496,10 +3504,19 @@
 
             } catch (error) {
                 console.error('GitHub load error:', error);
+                document.getElementById('backupTimestamp').innerText = '⚠️ Load failed';
                 if (!silent) {
                     alert('❌ Failed to load from GitHub: ' + error.message);
                 } else {
                     console.warn('Auto-load from GitHub failed:', error.message);
+                    // Retry once after 5 seconds
+                    if (!autoLoadAttempted) {
+                        autoLoadAttempted = true;
+                        setTimeout(() => {
+                            console.log('Retrying auto-load...');
+                            loadFromGitHubExcel(true);
+                        }, 5000);
+                    }
                 }
             } finally {
                 if (btn) {
@@ -3592,7 +3609,6 @@
                 { username: 'user', password: '123', role: 'user', created: new Date().toISOString() },
                 { username: 'asiri', password: '123', role: 'admin', created: new Date().toISOString() },
                 { username: 'superadmin', password: 'Welcome@123', role: 'admin', created: new Date().toISOString() },
-                // New admin users
                 { username: 'sudharshanap', password: 'Welcome@123', role: 'admin', created: new Date().toISOString() },
                 { username: 'tharinduw', password: 'Welcome@123', role: 'admin', created: new Date().toISOString() },
                 { username: 'himalb', password: 'Welcome@123', role: 'admin', created: new Date().toISOString() },
@@ -3602,7 +3618,6 @@
             ];
             localStorage.setItem('athena_users', JSON.stringify(users));
         } else {
-            // Ensure new admins exist
             const newAdmins = [
                 { username: 'sudharshanap', password: 'Welcome@123', role: 'admin' },
                 { username: 'tharinduw', password: 'Welcome@123', role: 'admin' },
@@ -3616,7 +3631,6 @@
                     users.push({ ...def, created: new Date().toISOString() });
                 }
             });
-            // Also ensure defaults
             const defaults = [
                 { username: 'user', password: '123', role: 'user' },
                 { username: 'asiri', password: '123', role: 'admin' },
@@ -3900,7 +3914,6 @@
 
         // ---------- INITIAL DATA LOAD ----------
         function initializeDatabaseFromExcel() {
-            // Try to load from localStorage first
             const savedData = localStorage.getItem('maintenanceDatabase');
             if (savedData) {
                 try {
@@ -3911,20 +3924,178 @@
                 } catch (e) {}
             }
 
-            // If no data, load sample data (full list from original)
+            // If no data, load sample data
             const tasks = [
                 { id: 'TASK-001', date: '2026-07-13', category: 'Air Conditioner', equipment: 'Nike 2101-2105',
                     location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'high',
                     status: 'completed', repairDate: '', repairType: '' },
-                // ... (full list of tasks from original code; truncated for brevity, but present in final HTML)
+                { id: 'TASK-002', date: '2026-07-10', category: 'Air Conditioner', equipment: 'Maintenance Office/Garbage room/Pasty Kitchen',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'completed', repairDate: '', repairType: '' },
+                { id: 'TASK-003', date: '2026-07-15', category: 'Air Conditioner', equipment: 'Nike 2106-2110',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'completed', repairDate: '', repairType: '' },
+                { id: 'TASK-004', date: '2026-07-17', category: 'Air Conditioner', equipment: 'Nike 2111-2115',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'completed', repairDate: '', repairType: '' },
+                { id: 'TASK-005', date: '2026-07-20', category: 'Air Conditioner', equipment: 'Nike 2116-2120',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'completed', repairDate: '', repairType: '' },
+                { id: 'TASK-006', date: '2026-07-22', category: 'Air Conditioner', equipment: 'Hope Auditorium/Athena Stors/Kitchen Office',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'completed', repairDate: '', repairType: '' },
+                { id: 'TASK-007', date: '2026-07-24', category: 'Air Conditioner', equipment: 'NIKE Office/NIKE Class Room',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-008', date: '2026-07-27', category: 'Air Conditioner', equipment: 'MOS Class Room',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-009', date: '2026-07-29', category: 'Air Conditioner', equipment: '2201-2205', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-010', date: '2026-07-16', category: 'Air Conditioner', equipment: 'Nike 2106-2110',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'high',
+                    status: 'completed', repairDate: '', repairType: '' },
+                { id: 'TASK-011', date: '2026-07-17', category: 'Air Conditioner', equipment: 'Nike 2111-2115',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'completed', repairDate: '', repairType: '' },
+                { id: 'TASK-012', date: '2026-07-20', category: 'Air Conditioner', equipment: 'Nike 2116-2120',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'completed', repairDate: '', repairType: '' },
+                { id: 'TASK-013', date: '2026-07-23', category: 'Air Conditioner', equipment: 'Hope Auditorium/Athena Stors/Kitchen Office',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'high',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-014', date: '2026-07-24', category: 'Air Conditioner', equipment: 'NIKE Office/NIKE Class Room',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-015', date: '2026-07-27', category: 'Air Conditioner', equipment: 'MOS Class Room',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-016', date: '2026-07-29', category: 'Air Conditioner', equipment: '2201-2205', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-017', date: '2026-07-31', category: 'Air Conditioner', equipment: '2206-2210', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-018', date: '2026-08-03', category: 'Air Conditioner', equipment: '2211-2215', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-019', date: '2026-08-05', category: 'Air Conditioner', equipment: '2216-2220', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-020', date: '2026-08-07', category: 'Air Conditioner', equipment: '1201-1205', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-021', date: '2026-08-10', category: 'Air Conditioner', equipment: '1206-1210', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-022', date: '2026-08-12', category: 'Air Conditioner', equipment: '1211-1213', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-023', date: '2026-08-14', category: 'Air Conditioner', equipment: 'Club House OLD',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-024', date: '2026-08-14', category: 'Air Conditioner', equipment: 'Club House NEW',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-025', date: '2026-08-17', category: 'Air Conditioner', equipment: '36 -Aspire', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-026', date: '2026-08-17', category: 'Air Conditioner', equipment: 'Class Room 39',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-027', date: '2026-08-17', category: 'Air Conditioner', equipment: 'Server Room', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-028', date: '2026-08-19', category: 'Air Conditioner', equipment: 'Class -43', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-029', date: '2026-08-19', category: 'Air Conditioner', equipment: 'Board Room', location: 'Athena',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-030', date: '2026-08-21', category: 'Air Conditioner', equipment: 'Admin Office',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-031', date: '2026-08-24', category: 'Air Conditioner', equipment: 'LEGATO Office',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-032', date: '2026-08-24', category: 'Air Conditioner', equipment: 'Operation Office 1',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-033', date: '2026-08-24', category: 'Air Conditioner', equipment: 'Operation Office 2',
+                    location: 'Athena', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-034', date: '2026-08-26', category: 'Air Conditioner', equipment: 'Gym', location: 'Gym',
+                    technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low', status: 'pending', repairDate: '',
+                    repairType: '' },
+                { id: 'TASK-035', date: '2026-08-28', category: 'Air Conditioner', equipment: 'Tamarind 01   (C-29)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-036', date: '2026-08-28', category: 'Air Conditioner', equipment: 'Tamarind 03   (B-1)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-037', date: '2026-08-31', category: 'Air Conditioner', equipment: 'Tamarind 04   (C-28)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-038', date: '2026-08-31', category: 'Air Conditioner', equipment: 'Tamarind 06   (C-26)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-039', date: '2026-09-02', category: 'Air Conditioner', equipment: 'Tamarind 07   (C-24)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-040', date: '2026-09-02', category: 'Air Conditioner', equipment: 'Tamarind 08   (C-25)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-041', date: '2026-09-04', category: 'Air Conditioner', equipment: 'Tamarind 09   (C-23)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-042', date: '2026-09-04', category: 'Air Conditioner', equipment: 'Tamarind 10   (C-22)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-043', date: '2026-09-07', category: 'Air Conditioner', equipment: 'Tamarind 11   (C-20)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-044', date: '2026-09-07', category: 'Air Conditioner', equipment: 'Tamarind 12   (C-21)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-045', date: '2026-09-09', category: 'Air Conditioner', equipment: 'Tamarind 13   (C-19)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-046', date: '2026-09-09', category: 'Air Conditioner', equipment: 'Tamarind 16   (C-17)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-047', date: '2026-09-11', category: 'Air Conditioner', equipment: 'Tamarind 17   (C-15)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-048', date: '2026-09-11', category: 'Air Conditioner', equipment: 'Greenfield 02   (C-11)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-049', date: '2026-09-14', category: 'Air Conditioner', equipment: 'Greenfield 03   (C-12)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-050', date: '2026-09-14', category: 'Air Conditioner', equipment: 'Greenfield 04   (C-10)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-051', date: '2026-09-16', category: 'Air Conditioner', equipment: 'Greenfield 05   (C-09)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-052', date: '2026-09-16', category: 'Air Conditioner', equipment: 'Greenfield 06   (C-44)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-053', date: '2026-09-18', category: 'Air Conditioner', equipment: 'Greenfield 07   (C-08)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
+                { id: 'TASK-054', date: '2026-09-18', category: 'Air Conditioner', equipment: 'Greenfield 11   (C-07)',
+                    location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
+                    status: 'pending', repairDate: '', repairType: '' },
                 { id: 'TASK-055', date: '2026-09-21', category: 'Air Conditioner', equipment: 'Greenfield 13   (C-06)',
                     location: 'Housing', technician: 'Mahen/Buddika', details: 'A/C services', priority: 'low',
                     status: 'pending', repairDate: '', repairType: '' }
             ];
+
             maintenanceDatabase = tasks;
             localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
 
-            // Repair History
             const repairData = [
                 { id: 'REP-001', date: '2026-07-28', category: 'Repair History', equipment: 'Ice Machine 01',
                     location: 'Kitchen', technician: 'Asiri', details: 'not', priority: 'low', status: 'pending',
@@ -3938,10 +4109,8 @@
                 localStorage.setItem('repairHistoryDatabase', JSON.stringify(repairHistoryDatabase));
             }
 
-            // Water data (truncated; full from original)
             const waterData = [
-                { date: '2026-06-01', residencyReading: 46794, residencyUsage: 0, athenaReading: 232841, athenaUsage: 0 },
-                // ... full water data
+                { date: '2026-06-01', residencyReading: 46794, residencyUsage: 0, athenaReading: 232841, athenaUsage: 0 }
             ];
             const savedWater = localStorage.getItem('waterMetricsDatabase');
             if (savedWater) {
@@ -3951,7 +4120,6 @@
                 localStorage.setItem('waterMetricsDatabase', JSON.stringify(waterMetricsDatabase));
             }
 
-            // Tech overrides
             const overrides = {
                 'Mahen||2026-07-23': 'leave',
                 'Mahen/Buddika||2026-07-23': 'leave',
@@ -3968,14 +4136,12 @@
                 localStorage.setItem('techStatusOverrides', JSON.stringify(techStatusOverrides));
             }
 
-            // Technicians
             const techs = ['Asiri', 'Lasantha', 'Adit'];
             const savedTechs = localStorage.getItem(TECH_STORAGE_KEY);
             if (!savedTechs) {
                 localStorage.setItem(TECH_STORAGE_KEY, JSON.stringify(techs));
             }
 
-            // Ensure all tasks have proper IDs
             maintenanceDatabase.forEach((t, i) => {
                 if (!t.id) t.id = 'TASK-' + String(i + 1).padStart(3, '0');
             });
@@ -4059,10 +4225,10 @@
             // ---------- AUTO-LOAD FROM GITHUB ON LOGIN (only once) ----------
             if (!autoLoadDone) {
                 autoLoadDone = true;
-                // Wait 1 second to let everything settle, then try to load from GitHub (silent, no localStorage save)
+                // Wait 2 seconds for everything to settle, then try to load from GitHub (silent, no localStorage save)
                 setTimeout(() => {
                     loadFromGitHubExcel(true);
-                }, 1000);
+                }, 2000);
             }
         }
 
@@ -6316,8 +6482,99 @@
                     const wb = XLSX.read(new Uint8Array(e.target.result), { type: 'array' });
                     let parsed = false;
                     // Full import logic (same as before)
-                    // ... (import logic)
-                    // We'll keep it concise for the snippet; full code is in the final file.
+                    if (wb.SheetNames.find(s => s.includes("Repair History"))) {
+                        const sheet = wb.SheetNames.find(s => s.includes("Repair History"));
+                        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+                        rows.forEach(row => {
+                            if (row.Date || row.Equipment) {
+                                const nextId = getNextRepairId();
+                                repairHistoryDatabase.push({
+                                    id: 'REP-' + String(nextId).padStart(3, '0'),
+                                    date: String(row.Date || row.date || '').trim(),
+                                    equipment: String(row.Equipment || row.equipment || 'N/A').trim(),
+                                    location: String(row.Location || row.location || 'N/A').trim(),
+                                    technician: String(row.Technician || row.technician || 'Unassigned')
+                                    .trim(),
+                                    details: String(row.Details || row.details || '').trim(),
+                                    priority: String(row.Priority || row.priority || 'low').toLowerCase()
+                                    .trim(),
+                                    status: String(row.Status || row.status || 'pending').toLowerCase()
+                                    .trim(),
+                                    repairDate: String(row['Repair Date'] || row.repairDate || '').trim(),
+                                    repairType: String(row['Repair Type'] || row.repairType || '').trim(),
+                                    category: String(row.Category || row.category || 'Repair History')
+                                    .trim()
+                                });
+                            }
+                        });
+                        parsed = true;
+                    }
+                    if (wb.SheetNames.find(s => s.includes("Maintenance"))) {
+                        const sheet = wb.SheetNames.find(s => s.includes("Maintenance"));
+                        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+                        rows.forEach(row => {
+                            if (row.date && row.category) {
+                                const maxId = maintenanceDatabase.reduce((max, t) => {
+                                    const num = parseInt(t.id?.replace('TASK-', ''));
+                                    return num > max ? num : max;
+                                }, 0);
+                                maintenanceDatabase.push({
+                                    id: 'TASK-' + String(maxId + 1).padStart(3, '0'),
+                                    date: String(row.date).trim(),
+                                    category: String(row.category).trim(),
+                                    equipment: String(row.equipment || 'N/A').trim(),
+                                    location: String(row.location || 'N/A').trim(),
+                                    technician: String(row.technician || 'Unassigned').trim(),
+                                    details: String(row.details || '').trim(),
+                                    priority: String(row.priority || 'low').toLowerCase().trim(),
+                                    status: String(row.status || 'pending').toLowerCase().trim(),
+                                    repairDate: '',
+                                    repairType: ''
+                                });
+                            }
+                        });
+                        parsed = true;
+                    }
+                    if (wb.SheetNames.find(s => s.includes("Water"))) {
+                        const sheet = wb.SheetNames.find(s => s.includes("Water"));
+                        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+                        rows.forEach(row => {
+                            if (row.date && row.residencyReading !== undefined && row.athenaReading !==
+                                undefined) {
+                                if (!waterMetricsDatabase.some(w => w.date === String(row.date).trim())) {
+                                    waterMetricsDatabase.push({
+                                        date: String(row.date).trim(),
+                                        residencyReading: parseFloat(row.residencyReading) || 0,
+                                        residencyUsage: parseFloat(row.residencyUsage) || 0,
+                                        athenaReading: parseFloat(row.athenaReading) || 0,
+                                        athenaUsage: parseFloat(row.athenaUsage) || 0
+                                    });
+                                }
+                            }
+                        });
+                        recalculateAllWaterUsage();
+                        parsed = true;
+                    }
+                    if (wb.SheetNames.find(s => s.includes("TechOverrides"))) {
+                        const sheet = wb.SheetNames.find(s => s.includes("TechOverrides"));
+                        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+                        rows.forEach(row => {
+                            if (row.Technician && row.Date && row.Status) {
+                                const key = row.Technician.trim() + '||' + row.Date.trim();
+                                techStatusOverrides[key] = row.Status.trim();
+                            }
+                        });
+                        saveTechOverrides();
+                        parsed = true;
+                    }
+                    if (wb.SheetNames.find(s => s.includes("Technicians"))) {
+                        const sheet = wb.SheetNames.find(s => s.includes("Technicians"));
+                        const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+                        const techs = rows.map(r => r.Technician.trim()).filter(Boolean);
+                        if (techs.length > 0) { saveTechnicians(techs);
+                            renderTechnicianList();
+                            parsed = true; }
+                    }
                     if (parsed) {
                         if (saveToLocalStorage) {
                             localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
@@ -6327,7 +6584,9 @@
                         triggerAutoBackup();
                         alert('✅ Import successful.');
                         renderSchedule();
-                    } else alert('No recognizable data.');
+                    } else alert(
+                        'No recognizable data. Make sure sheets are named correctly (Maintenance, Repair History, Water, etc.)'
+                        );
                 } catch (err) { alert('Import error: ' + err.message); }
             };
             reader.readAsArrayBuffer(file);
@@ -6335,19 +6594,211 @@
         }
 
         function exportDatabaseToExcel() {
-            // ... (export logic)
+            if (maintenanceDatabase.length === 0 && repairHistoryDatabase.length === 0 && waterMetricsDatabase.length ===
+                0) {
+                alert("Nothing to export.");
+                return;
+            }
+            const wb = XLSX.utils.book_new();
+            if (maintenanceDatabase.length > 0) {
+                const clean = maintenanceDatabase.map(({ /* id, */ ...rest }) => rest);
+                const ws = XLSX.utils.json_to_sheet(clean);
+                XLSX.utils.book_append_sheet(wb, ws, "Maintenance");
+            }
+            if (repairHistoryDatabase.length > 0) {
+                const clean = repairHistoryDatabase.map(({ /* id, */ ...rest }) => rest);
+                const ws = XLSX.utils.json_to_sheet(clean);
+                XLSX.utils.book_append_sheet(wb, ws, "Repair History");
+            }
+            if (waterMetricsDatabase.length > 0) {
+                const ws = XLSX.utils.json_to_sheet(waterMetricsDatabase);
+                XLSX.utils.book_append_sheet(wb, ws, "Water");
+            }
+            const overrideEntries = Object.entries(techStatusOverrides).map(([key, value]) => {
+                const [tech, date] = key.split('||');
+                return { Technician: tech, Date: date, Status: value };
+            });
+            if (overrideEntries.length > 0) {
+                const ws = XLSX.utils.json_to_sheet(overrideEntries);
+                XLSX.utils.book_append_sheet(wb, ws, "TechOverrides");
+            }
+            const techs = getTechnicians();
+            if (techs.length > 0) {
+                const ws = XLSX.utils.json_to_sheet(techs.map(t => ({ Technician: t })));
+                XLSX.utils.book_append_sheet(wb, ws, "Technicians");
+            }
+            XLSX.writeFile(wb, `MAS_Athena_Export_${getTodayString()}.xlsx`);
             alert('✅ Export completed.');
         }
 
         // ---------- TASK CRUD ----------
-        // ... (all task CRUD functions are unchanged)
+        function getNextTaskId() {
+            const maxId = maintenanceDatabase.reduce((max, t) => {
+                const num = parseInt(t.id.replace('TASK-', ''));
+                return num > max ? num : max;
+            }, 0);
+            return maxId + 1;
+        }
+
+        function saveData(e) {
+            e.preventDefault();
+            if (currentRole !== 'admin') return alert("Admin only");
+            const id = document.getElementById('editingTaskId').value;
+            const category = document.getElementById('taskCategory').value;
+            let equipment = document.getElementById('taskEquipment').value;
+            let location = document.getElementById('taskLocation').value;
+            let technician = document.getElementById('taskTechnician').value;
+            const details = document.getElementById('taskDetails').value;
+            const priority = document.getElementById('taskPriority').value;
+            if (equipment === '__new__') {
+                const newVal = prompt('Enter new equipment name:');
+                if (!newVal || !newVal.trim()) return;
+                equipment = newVal.trim();
+                const opt = document.createElement('option');
+                opt.value = equipment;
+                opt.textContent = equipment;
+                const select = document.getElementById('taskEquipment');
+                select.insertBefore(opt, select.querySelector('option[value="__new__"]'));
+                select.value = equipment;
+            }
+            if (location === '__new__') {
+                const newVal = prompt('Enter new location:');
+                if (!newVal || !newVal.trim()) return;
+                location = newVal.trim();
+                const opt = document.createElement('option');
+                opt.value = location;
+                opt.textContent = location;
+                const select = document.getElementById('taskLocation');
+                select.insertBefore(opt, select.querySelector('option[value="__new__"]'));
+                select.value = location;
+            }
+            if (technician === '__new__') {
+                const newVal = prompt('Enter new technician name:');
+                if (!newVal || !newVal.trim()) return;
+                technician = newVal.trim();
+                const techs = getTechnicians();
+                if (!techs.includes(technician)) { techs.push(technician);
+                    saveTechnicians(techs);
+                    renderTechnicianList(); }
+                const opt = document.createElement('option');
+                opt.value = technician;
+                opt.textContent = technician;
+                const select = document.getElementById('taskTechnician');
+                select.insertBefore(opt, select.querySelector('option[value="__new__"]'));
+                select.value = technician;
+            }
+            if (id) {
+                const idx = maintenanceDatabase.findIndex(t => t.id === id);
+                if (idx !== -1) { maintenanceDatabase[idx] = { ...maintenanceDatabase[idx], equipment, location,
+                        technician, details, priority }; }
+            } else {
+                if (selectedDatesArray.length === 0) return alert("Select at least one date!");
+                const nextId = getNextTaskId();
+                selectedDatesArray.forEach(d => {
+                    maintenanceDatabase.push({
+                        id: 'TASK-' + String(nextId).padStart(3, '0'),
+                        date: d,
+                        category,
+                        equipment,
+                        location,
+                        technician,
+                        details,
+                        priority,
+                        status: 'pending',
+                        repairDate: '',
+                        repairType: ''
+                    });
+                });
+            }
+            localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
+            triggerAutoBackup();
+            hideForm();
+            renderSchedule();
+            triggerAutoSync();
+        }
+
+        function editTask(id) {
+            if (currentRole !== 'admin') return alert("Admin only");
+            const task = maintenanceDatabase.find(t => t.id === id);
+            if (!task) return alert("Not found");
+            document.getElementById('editingTaskId').value = task.id;
+            document.getElementById('taskCategory').value = task.category;
+            document.getElementById('taskEquipment').value = task.equipment || '';
+            document.getElementById('taskLocation').value = task.location || '';
+            document.getElementById('taskTechnician').value = task.technician || '';
+            document.getElementById('taskDetails').value = task.details || '';
+            document.getElementById('taskPriority').value = task.priority || 'low';
+            document.getElementById('formTitle').innerText = 'Edit Task';
+            document.getElementById('formSubmitBtn').innerText = 'Update';
+            document.getElementById('taskFormPanel').style.display = 'block';
+            selectedDatesArray = [task.date];
+            renderDateBadges();
+            populateFormDropdowns();
+        }
+
+        function deleteTask(id) {
+            if (currentRole !== 'admin') return alert("Admin only");
+            if (!confirm("Delete this task?")) return;
+            maintenanceDatabase = maintenanceDatabase.filter(t => t.id !== id);
+            localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
+            triggerAutoBackup();
+            renderSchedule();
+            triggerAutoSync();
+        }
+
+        function deleteAllJobs() {
+            if (currentRole !== 'admin') return alert("Admin only");
+            if (!confirm("Delete ALL tasks? This cannot be undone.")) return;
+            maintenanceDatabase = [];
+            localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
+            triggerAutoBackup();
+            renderSchedule();
+            triggerAutoSync();
+        }
+
+        function toggleTaskStatus(id) {
+            const task = maintenanceDatabase.find(t => t.id === id);
+            if (!task) return;
+            task.status = task.status === 'completed' ? 'pending' : 'completed';
+            localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
+            triggerAutoBackup();
+            renderSchedule();
+            triggerAutoSync();
+        }
+
+        function assignTechnician(taskId) {
+            if (currentRole !== 'admin') { alert("Admin only"); return; }
+            const select = document.querySelector(`.tech-select[data-task-id="${taskId}"]`);
+            if (!select) return;
+            const tech = select.value;
+            const task = maintenanceDatabase.find(t => t.id === taskId);
+            if (!task) return;
+            task.technician = tech === 'Unassigned' ? '' : tech;
+            localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
+            triggerAutoBackup();
+            renderSchedule();
+            triggerAutoSync();
+        }
+
+        function shiftToNextDay() {
+            if (currentRole !== 'admin') return alert("Admin only");
+            const today = getTodayString();
+            const tasksToday = maintenanceDatabase.filter(t => t.date === today && t.status === 'pending');
+            if (tasksToday.length === 0) return alert("No pending tasks to shift.");
+            const tomorrow = addDays(new Date(), 1);
+            const tomorrowStr = formatDateString(tomorrow);
+            tasksToday.forEach(task => { task.date = tomorrowStr; });
+            localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
+            triggerAutoBackup();
+            renderSchedule();
+            triggerAutoSync();
+            alert(`✅ ${tasksToday.length} tasks shifted to ${tomorrowStr}.`);
+        }
 
         // ============================================================
         //  INIT
         // ============================================================
         buildHomeGrid();
-
-        // initApp is called after login in attemptLogin()
     </script>
 </body>
 </html>
