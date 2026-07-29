@@ -3178,7 +3178,7 @@
 
     <script>
         // ============================================================
-        //  COMPLETE JAVASCRIPT – AUTO-LOAD WITHOUT SAVING TO LOCALSTORAGE
+        //  COMPLETE JAVASCRIPT – AUTO-LOAD + AUTO-SAVE AFTER 20s
         // ============================================================
 
         // ---------- GITHUB SYNC ENGINE (unchanged) ----------
@@ -3460,7 +3460,9 @@
             syncTimeout = setTimeout(() => { pushToGitHub(); }, 3000);
         }
 
-        // ---------- LOAD FROM GITHUB EXCEL (with silent mode and save control) ----------
+        // ---------- LOAD FROM GITHUB EXCEL (with silent mode and save control + auto-save after 20s) ----------
+        let autoSaveTimer = null;
+
         async function loadFromGitHubExcel(silent = true) {
             if (!silent && currentRole !== 'admin') {
                 alert("Admin only for manual load.");
@@ -3504,9 +3506,20 @@
                     alert('✅ Excel file loaded successfully from GitHub!');
                 } else {
                     document.getElementById('backupTimestamp').innerText = '📥 Auto-loaded from GitHub';
-                    setTimeout(() => {
-                        document.getElementById('backupTimestamp').innerText = '💾 Saved';
-                    }, 2000);
+                    // After loading, schedule auto-save to IndexedDB and possibly push to GitHub after 20 seconds
+                    if (autoSaveTimer) clearTimeout(autoSaveTimer);
+                    autoSaveTimer = setTimeout(() => {
+                        // Backup to IndexedDB
+                        triggerAutoBackup();
+                        // Also, if autoSync is enabled, push to GitHub
+                        if (autoSyncEnabled && githubToken && githubRepo) {
+                            pushToGitHub();
+                        }
+                        document.getElementById('backupTimestamp').innerText = '💾 Auto-saved after load';
+                        setTimeout(() => {
+                            document.getElementById('backupTimestamp').innerText = '💾 Saved';
+                        }, 2000);
+                    }, 20000);
                 }
 
             } catch (error) {
@@ -6717,7 +6730,8 @@
         buildHomeGrid();
 
         // initApp is called after login in attemptLogin()
-        // Inside initApp, we now call loadFromGitHubExcel(true) for auto-load with no localStorage save.
+        // Inside initApp, we now call loadFromGitHubExcel(true) for auto-load with no localStorage save,
+        // and after 20 seconds it auto-saves to IndexedDB and (if enabled) pushes to GitHub.
     </script>
 </body>
 </html>
