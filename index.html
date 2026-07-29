@@ -28,7 +28,6 @@
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             --radius: 8px;
             --bg: #f3f4f6;
-            --onedrive: #0078d4;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -581,13 +580,6 @@
         .btn-roster-action {
             background: #b45309;
             color: white;
-        }
-        .btn-onedrive {
-            background: var(--onedrive);
-            color: white;
-        }
-        .btn-onedrive:hover {
-            background: #0066b3;
         }
         .btn-github-pull {
             background: #0366d6;
@@ -2669,25 +2661,6 @@
             font-size: 0.8rem;
         }
 
-        /* OneDrive status */
-        .onedrive-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.7rem;
-            padding: 3px 10px;
-            border-radius: 20px;
-            background: #f1f3f5;
-            color: #4b5563;
-        }
-        .onedrive-status.connected {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-        .onedrive-status .od-icon {
-            font-size: 1rem;
-        }
-
         @media (max-width: 600px) {
             .home-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -2895,10 +2868,6 @@
                     </div>
                     <div class="toolbar-actions">
                         <button class="btn btn-github-pull btn-sm" onclick="loadFromGitHubExcel(false)">📥 Load from GitHub</button>
-                        <span id="onedriveStatus" class="onedrive-status"><span class="od-icon">☁️</span> OneDrive: Not signed in</span>
-                        <button class="btn btn-onedrive btn-sm" onclick="loginOneDrive()">🔑 Sign in to OneDrive</button>
-                        <button class="btn btn-onedrive btn-sm" onclick="backupToOneDrive()">💾 Backup to OneDrive</button>
-                        <button class="btn btn-onedrive btn-sm" onclick="restoreFromOneDrive()">📥 Restore from OneDrive</button>
                         <input type="file" id="excelFileInput" accept=".xlsx,.xls" style="display:none;" onchange="importExcelData(event, true)" />
                         <button class="btn btn-import btn-sm" onclick="document.getElementById('excelFileInput').click()">📥 Import</button>
                         <button class="btn btn-export btn-sm" onclick="exportDatabaseToExcel()">📤 Export</button>
@@ -3178,7 +3147,7 @@
 
     <script>
         // ============================================================
-        //  COMPLETE JAVASCRIPT – AUTO-LOAD + AUTO-SAVE AFTER 20s
+        //  COMPLETE JAVASCRIPT – NO ONEDRIVE, AUTO-LOAD + AUTO-SAVE AFTER 20s
         // ============================================================
 
         // ---------- GITHUB SYNC ENGINE (unchanged) ----------
@@ -3460,7 +3429,7 @@
             syncTimeout = setTimeout(() => { pushToGitHub(); }, 3000);
         }
 
-        // ---------- LOAD FROM GITHUB EXCEL (with silent mode and save control + auto-save after 20s) ----------
+        // ---------- LOAD FROM GITHUB EXCEL (with silent mode and auto-save after 20s) ----------
         let autoSaveTimer = null;
 
         async function loadFromGitHubExcel(silent = true) {
@@ -3537,101 +3506,7 @@
             }
         }
 
-        // ---------- ONEDRIVE INTEGRATION (unchanged) ----------
-        const msalConfig = {
-            auth: {
-                clientId: 'YOUR_CLIENT_ID',
-                authority: 'https://login.microsoftonline.com/common',
-                redirectUri: window.location.origin + window.location.pathname,
-                postLogoutRedirectUri: window.location.origin + window.location.pathname
-            },
-            cache: { cacheLocation: 'localStorage', storeAuthStateInCookie: false }
-        };
-        const graphScopes = { scopes: ['Files.ReadWrite', 'Files.ReadWrite.All', 'User.Read'] };
-        let msalInstance = null;
-        let odAccount = null;
-        let odAccessToken = null;
-
-        function initMSAL() {
-            try {
-                msalInstance = new msal.PublicClientApplication(msalConfig);
-            } catch (e) { console.warn('MSAL not initialized:', e); }
-        }
-
-        async function loginOneDrive() {
-            if (msalConfig.auth.clientId === 'YOUR_CLIENT_ID') {
-                alert('⚠️ OneDrive requires Azure AD app registration. Replace YOUR_CLIENT_ID in the code.');
-                window.open('https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade', '_blank');
-                return;
-            }
-            if (!msalInstance) { alert('MSAL not loaded. Refresh.'); return; }
-            try {
-                const response = await msalInstance.loginPopup(graphScopes);
-                odAccount = response.account;
-                const tokenResponse = await msalInstance.acquireTokenSilent({ ...graphScopes, account: odAccount });
-                odAccessToken = tokenResponse.accessToken;
-                document.getElementById('onedriveStatus').innerHTML = '<span class="od-icon">☁️</span> OneDrive: Connected ✅';
-                document.getElementById('onedriveStatus').className = 'onedrive-status connected';
-                alert('✅ Connected to OneDrive!');
-            } catch (error) {
-                alert('OneDrive login failed: ' + error.message);
-            }
-        }
-
-        async function backupToOneDrive() {
-            if (!odAccessToken) { alert('Sign in to OneDrive first.'); return; }
-            try {
-                const dbData = { timestamp: new Date().toISOString(), records: maintenanceDatabase, repairData: repairHistoryDatabase,
-                    waterData: waterMetricsDatabase, users: users, technicians: getTechnicians(), overrides: techStatusOverrides };
-                const content = JSON.stringify(dbData, null, 2);
-                const fileName = 'MAS_Athena_Backup_' + getTodayString() + '.json';
-                const url = 'https://graph.microsoft.com/v1.0/me/drive/root:/' + fileName + ':/content';
-                const res = await fetch(url, { method: 'PUT', headers: { 'Authorization': 'Bearer ' + odAccessToken,
-                        'Content-Type': 'application/json' }, body: content });
-                if (!res.ok) throw new Error('Upload failed: ' + res.status);
-                alert('✅ Backup to OneDrive successful!\n' + fileName);
-            } catch (e) { alert('❌ OneDrive backup failed: ' + e.message); }
-        }
-
-        async function restoreFromOneDrive() {
-            if (!odAccessToken) { alert('Sign in to OneDrive first.'); return; }
-            try {
-                const listUrl =
-                    'https://graph.microsoft.com/v1.0/me/drive/root/children?$filter=startsWith(name,%27MAS_Athena_Backup_%27)';
-                const listRes = await fetch(listUrl, { headers: { 'Authorization': 'Bearer ' + odAccessToken } });
-                if (!listRes.ok) throw new Error('List failed: ' + listRes.status);
-                const data = await listRes.json();
-                const files = data.value || [];
-                if (files.length === 0) { alert('No backup files found.'); return; }
-                files.sort((a, b) => new Date(b.lastModifiedDateTime) - new Date(a.lastModifiedDateTime));
-                const latest = files[0];
-                if (!confirm('Restore from ' + latest.name + '?')) return;
-                const dlUrl = 'https://graph.microsoft.com/v1.0/me/drive/items/' + latest.id + '/content';
-                const dlRes = await fetch(dlUrl, { headers: { 'Authorization': 'Bearer ' + odAccessToken } });
-                if (!dlRes.ok) throw new Error('Download failed: ' + dlRes.status);
-                const jsonData = await dlRes.json();
-                if (jsonData.records) maintenanceDatabase = jsonData.records;
-                if (jsonData.repairData) repairHistoryDatabase = jsonData.repairData;
-                if (jsonData.waterData) waterMetricsDatabase = jsonData.waterData;
-                if (jsonData.users) users = jsonData.users;
-                if (jsonData.technicians) saveTechnicians(jsonData.technicians);
-                if (jsonData.overrides) { techStatusOverrides = jsonData.overrides;
-                    saveTechOverrides(); }
-                localStorage.setItem('maintenanceDatabase', JSON.stringify(maintenanceDatabase));
-                localStorage.setItem('repairHistoryDatabase', JSON.stringify(repairHistoryDatabase));
-                localStorage.setItem('waterMetricsDatabase', JSON.stringify(waterMetricsDatabase));
-                localStorage.setItem('athena_users', JSON.stringify(users));
-                recalculateAllWaterUsage();
-                triggerAutoBackup();
-                renderSchedule();
-                renderUserList();
-                renderLoginHistory();
-                renderTechnicianList();
-                alert('✅ Restore successful!');
-            } catch (e) { alert('❌ Restore failed: ' + e.message); }
-        }
-
-        // ---------- TECHNICIAN MANAGEMENT (unchanged) ----------
+        // ---------- TECHNICIAN MANAGEMENT ----------
         const TECH_STORAGE_KEY = 'athena_technicians';
 
         function loadTechnicians() {
@@ -4148,7 +4023,6 @@
             renderSchedule();
             renderUserList();
             renderLoginHistory();
-            initMSAL();
             showHome();
 
             // ---------- AUTO-LOAD FROM GITHUB ON LOGIN (only once) ----------
@@ -6730,7 +6604,7 @@
         buildHomeGrid();
 
         // initApp is called after login in attemptLogin()
-        // Inside initApp, we now call loadFromGitHubExcel(true) for auto-load with no localStorage save,
+        // Inside initApp, we call loadFromGitHubExcel(true) for auto-load with no localStorage save,
         // and after 20 seconds it auto-saves to IndexedDB and (if enabled) pushes to GitHub.
     </script>
 </body>
