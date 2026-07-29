@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-29T09:29:23.412Z",
+  "timestamp": "2026-07-29T10:08:34.181Z",
   "records": [
     {
       "username": "user",
@@ -18,6 +18,42 @@
       "password": "Welcome@123",
       "role": "admin",
       "created": "2026-07-23T16:20:17.970Z"
+    },
+    {
+      "username": "sudharshanap",
+      "password": "Welcome@123",
+      "role": "admin",
+      "created": "2026-07-29T09:55:18.220Z"
+    },
+    {
+      "username": "tharinduw",
+      "password": "Welcome@123",
+      "role": "admin",
+      "created": "2026-07-29T09:55:18.223Z"
+    },
+    {
+      "username": "himalb",
+      "password": "Welcome@123",
+      "role": "admin",
+      "created": "2026-07-29T09:55:18.223Z"
+    },
+    {
+      "username": "manodyac",
+      "password": "Welcome@123",
+      "role": "admin",
+      "created": "2026-07-29T09:55:18.223Z"
+    },
+    {
+      "username": "deepall",
+      "password": "Welcome@123",
+      "role": "admin",
+      "created": "2026-07-29T09:55:18.223Z"
+    },
+    {
+      "username": "athenaeng",
+      "password": "Welcome@123",
+      "role": "admin",
+      "created": "2026-07-29T09:55:18.223Z"
     }
   ]
 }
