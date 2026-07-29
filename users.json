@@ -1,23 +1,23 @@
 {
-  "timestamp": "2026-07-29T04:43:51.595Z",
+  "timestamp": "2026-07-29T07:14:24.111Z",
   "records": [
     {
       "username": "user",
       "password": "123",
       "role": "user",
-      "created": "2026-07-29T04:41:23.644Z"
+      "created": "2026-07-23T16:20:17.966Z"
     },
     {
       "username": "asiri",
       "password": "123",
       "role": "admin",
-      "created": "2026-07-29T04:41:23.647Z"
+      "created": "2026-07-23T16:20:17.970Z"
     },
     {
       "username": "superadmin",
       "password": "Welcome@123",
       "role": "admin",
-      "created": "2026-07-29T04:41:23.647Z"
+      "created": "2026-07-23T16:20:17.970Z"
     }
   ]
 }
