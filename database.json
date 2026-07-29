@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-29T09:06:55.530Z",
+  "timestamp": "2026-07-29T09:07:22.515Z",
   "records": [
     {
       "id": "TASK-001",
@@ -87,7 +87,7 @@
       "technician": "Mahen/Buddika",
       "details": "A/C services",
       "priority": "low",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": "TASK-009",
@@ -164,7 +164,7 @@
       "technician": "Mahen/Buddika",
       "details": "A/C services",
       "priority": "low",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "id": "TASK-016",
