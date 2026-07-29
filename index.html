@@ -3632,9 +3632,9 @@
                 }
             });
             const defaults = [
-                { username: 'user', password: '123', role: 'user' },
-                { username: 'asiri', password: '123', role: 'admin' },
-                { username: 'superadmin', password: 'Welcome@123', role: 'admin' }
+                { username: 'user', password: '', role: 'user' },
+                { username: 'asiri', password: '', role: 'admin' },
+                { username: 'superadmin', password: '', role: 'admin' }
             ];
             defaults.forEach(def => {
                 if (!users.find(u => u.username === def.username)) {
