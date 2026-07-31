@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-31T07:07:32.065Z",
+  "timestamp": "2026-07-31T07:07:48.876Z",
   "records": [
     {
       "id": "TASK-001",
@@ -15610,7 +15610,7 @@
       "technician": "Mahen/Buddika",
       "details": "A/C services",
       "priority": "low",
-      "status": "pending",
+      "status": "completed",
       "repairDate": "",
       "repairType": ""
     },
@@ -26764,7 +26764,7 @@
       "technician": "Indika",
       "details": "Maintenance and Services",
       "priority": "low",
-      "status": "pending",
+      "status": "completed",
       "repairDate": "",
       "repairType": ""
     },
@@ -27037,7 +27037,7 @@
       "technician": "Indika",
       "details": "Maintenance and Services",
       "priority": "low",
-      "status": "pending",
+      "status": "completed",
       "repairDate": "",
       "repairType": ""
     },
@@ -28480,7 +28480,7 @@
       "technician": "Indika",
       "details": "Maintenance and Services",
       "priority": "low",
-      "status": "pending",
+      "status": "completed",
       "repairDate": "",
       "repairType": ""
     },
