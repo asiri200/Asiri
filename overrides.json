@@ -1,11 +1,36 @@
 {
-  "timestamp": "2026-07-29T10:26:36.637Z",
+  "timestamp": "2026-08-02T06:04:44.352Z",
   "records": {
     "Mahen||2026-07-23": "leave",
     "Mahen/Buddika||2026-07-23": "leave",
     "Amitha||2026-07-10": "leave",
     "Amitha||2026-07-01": "leave",
     "Mahen||2026-07-15": "leave",
-    "Indika||2026-07-23": "leave"
+    "Indika||2026-07-23": "leave",
+    "Asiri (supervisor)||2026-07-01": "working",
+    "Asiri (supervisor)||2026-07-02": "working",
+    "Asiri (supervisor)||2026-07-04": "working",
+    "Asiri (supervisor)||2026-07-06": "working",
+    "Asiri (supervisor)||2026-07-07": "working",
+    "Asiri (supervisor)||2026-07-08": "offday",
+    "Asiri (supervisor)||2026-07-24": "working",
+    "Asiri (supervisor)||2026-07-27": "working",
+    "Lasantha (supervisor)||2026-07-27": "working",
+    "Buddika||2026-07-27": "working",
+    "Indika||2026-07-27": "working",
+    "Mahen||2026-07-27": "working",
+    "Asiri (supervisor)||2026-07-19": "working",
+    "Nimal||2026-07-27": "working_22_06",
+    "Nimal||2026-07-20": "working_22_06",
+    "Pushpa Kumara||2026-07-20": "working_7_5",
+    "Pushpa Kumara||2026-07-27": "working_7_5",
+    "Asiri (supervisor)||2026-07-28": "working_7_5",
+    "Lasantha (supervisor)||2026-07-28": "working_7_5",
+    "Indika||2026-07-28": "working_14_22",
+    "Buddika||2026-07-28": "working_14_22",
+    "Mahen||2026-07-28": "leave",
+    "Mangala||2026-07-28": "working_7_5",
+    "Nimal||2026-07-28": "working_22_06",
+    "Pushpa Kumara||2026-07-28": "working_7_5"
   }
 }
