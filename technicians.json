@@ -1,22 +1,45 @@
 {
-  "timestamp": "2026-07-29T10:26:36.637Z",
+  "timestamp": "2026-08-02T06:04:44.352Z",
   "records": [
-    "Asiri",
-    "Lasantha",
-    "A",
-    "A",
-    "A",
-    "Asiri (supervisor)",
-    "Lasantha (supervisor)",
-Amitha
-Buddika
-Indika
-Mahen
-Mangala
-Nimal
-Pushpa Kumara
-Mahen/Buddika
-",
-    
+    {
+      "name": "Asiri (supervisor)",
+      "supervisor": false
+    },
+    {
+      "name": "Lasantha (supervisor)",
+      "supervisor": false
+    },
+    {
+      "name": "Amitha",
+      "supervisor": false
+    },
+    {
+      "name": "Buddika",
+      "supervisor": false
+    },
+    {
+      "name": "Indika",
+      "supervisor": false
+    },
+    {
+      "name": "Mahen",
+      "supervisor": false
+    },
+    {
+      "name": "Mangala",
+      "supervisor": false
+    },
+    {
+      "name": "Nimal",
+      "supervisor": false
+    },
+    {
+      "name": "Pushpa Kumara",
+      "supervisor": false
+    },
+    {
+      "name": "Mahen/Buddika",
+      "supervisor": false
+    }
   ]
 }
