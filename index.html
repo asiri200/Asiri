@@ -48,15 +48,28 @@
             align-items: center;
             justify-content: space-between;
         }
-        .header h2 {
-            font-weight: 600;
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .header-title h2 {
+            font-weight: 700;
             font-size: 1.3rem;
             color: #0b2b4a;
+            line-height: 1.2;
         }
-        .header .subtitle {
+        .header-title .subtitle {
             font-size: 0.75rem;
             color: #6b7280;
             font-weight: 400;
+            letter-spacing: 0.5px;
         }
         #liveClock {
             background: #eef2f6;
@@ -233,6 +246,48 @@
         }
         .home-btn:hover {
             background: #5a6268;
+        }
+
+        /* HOME BACKUP STATUS */
+        .home-backup-status {
+            background: white;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+        }
+        .home-backup-status .label {
+            font-weight: 600;
+            color: #6b7280;
+        }
+        .home-backup-status .status-badge {
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 30px;
+            background: #e5e7eb;
+            color: #1f2937;
+        }
+        .home-backup-status .status-badge.saved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .home-backup-status .status-badge.syncing {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .home-backup-status .status-badge.pushed {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .home-backup-status .status-badge.error {
+            background: #fecaca;
+            color: #b91c1c;
         }
 
         /* TOP NAV */
@@ -502,10 +557,25 @@
 
         .inline-backup-badge {
             font-size: 0.75rem;
-            color: var(--success);
-            background: #e8f5e9;
             padding: 2px 8px;
             border-radius: 4px;
+            font-weight: 600;
+        }
+        .inline-backup-badge.saved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .inline-backup-badge.syncing {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .inline-backup-badge.pushed {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .inline-backup-badge.error {
+            background: #fecaca;
+            color: #b91c1c;
         }
 
         .btn {
@@ -2556,115 +2626,6 @@
             background: #f97316;
         }
 
-        .github-settings-card {
-            background: white;
-            padding: 18px;
-            border-radius: var(--radius);
-            box-shadow: var(--card-shadow);
-            margin-top: 16px;
-            border-top: 5px solid #24292f;
-        }
-        .github-settings-card h4 {
-            margin: 0 0 12px 0;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-        }
-        .github-settings-card .form-group {
-            margin-bottom: 10px;
-        }
-        .github-settings-card .form-group label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 3px;
-        }
-        .github-settings-card .form-group input {
-            width: 100%;
-            padding: 6px 10px;
-            border: 2px solid #e2e8f0;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            transition: border-color 0.2s;
-        }
-        .github-settings-card .form-group input:focus {
-            border-color: var(--purple);
-            outline: none;
-        }
-        .github-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-            align-items: center;
-        }
-        .github-status {
-            margin-top: 8px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            background: #f8f9fa;
-            border-left: 4px solid var(--primary);
-        }
-        .github-status.success {
-            border-left-color: var(--success);
-            background: #f0fdf4;
-        }
-        .github-status.error {
-            border-left-color: var(--danger);
-            background: #fef2f2;
-        }
-        .github-status.syncing {
-            border-left-color: var(--warning);
-            background: #fffbeb;
-        }
-        .github-status .status-detail {
-            font-size: 0.7rem;
-            color: #6b7280;
-            margin-top: 2px;
-        }
-        .btn-github {
-            background: #24292f;
-            color: white;
-        }
-        .btn-github:hover {
-            background: #1b1f24;
-        }
-        .btn-github-push {
-            background: #2ea44f;
-            color: white;
-        }
-        .btn-github-push:hover {
-            background: #22863a;
-        }
-        .btn-github-pull {
-            background: #0366d6;
-            color: white;
-        }
-        .btn-github-pull:hover {
-            background: #0255b3;
-        }
-        .btn-github:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        .auto-sync-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            user-select: none;
-        }
-        .auto-sync-toggle input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-
         .footer {
             text-align: center;
             padding: 14px;
@@ -2822,22 +2783,25 @@
             .modal-box {
                 padding: 16px;
             }
-            .github-actions {
-                flex-direction: column;
-            }
-            .github-actions .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            .header h2 {
+            .header-title h2 {
                 font-size: 1rem;
             }
-            .header .subtitle {
+            .header-title .subtitle {
                 font-size: 0.6rem;
             }
             #liveClock {
                 font-size: 0.7rem;
                 padding: 4px 10px;
+            }
+        }
+        @media (max-width: 400px) {
+            .header-left {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+            .header-title {
+                align-items: center;
             }
         }
     </style>
@@ -2854,18 +2818,18 @@
                 <input type="password" id="loginPass" placeholder="Password" value="123" />
                 <button type="submit" class="btn-login">🔐 Login</button>
             </form>
-            <div id="loginError" class="login-error">Invalid credentials. Use user/123, asiri/123, or superadmin/Welcome@123</div>
-            <div style="margin-top:12px;font-size:0.7rem;color:#94a3b8;">
-                demo: user / 123 &nbsp;|&nbsp; asiri / 123 (admin) &nbsp;|&nbsp; superadmin / Welcome@123
-            </div>
+            <div id="loginError" class="login-error">Invalid credentials. Please try again.</div>
         </div>
     </div>
 
     <!-- ===== APP MAIN ===== -->
     <div id="appMain" style="display:none;">
         <div class="header">
-            <div>
-                <h2>🏢 Athena MMS <span class="subtitle">Maintenance Management System</span></h2>
+            <div class="header-left">
+                <div class="header-title">
+                    <h2>Athena MMS</h2>
+                    <span class="subtitle">Maintenance Management System</span>
+                </div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
                 <button class="home-btn" onclick="goHome()">🏠 Home</button>
@@ -2881,6 +2845,12 @@
                 <div class="home-header">
                     <h1>⚙️ Athena Maintenance Management System</h1>
                     <p>Choose a view below</p>
+                </div>
+                <!-- Backup status on home page -->
+                <div class="home-backup-status" id="homeBackupStatus">
+                    <span class="label">💾 Backup Status:</span>
+                    <span class="status-badge saved" id="homeBackupBadge">Saved</span>
+                    <span style="font-size:0.75rem;color:#6b7280;" id="homeBackupTime">Last: just now</span>
                 </div>
                 <div class="home-grid" id="homeGrid"></div>
             </div>
@@ -3171,7 +3141,7 @@
 
     <script>
         // ============================================================
-        //  COMPLETE JAVASCRIPT – Updated: Tech List, Auto-load fixed, New Name
+        //  COMPLETE JAVASCRIPT – localStorage/IndexedDB version (no Firebase)
         // ============================================================
 
         // ---------- TECHNICIAN LIST (with supervisors) ----------
@@ -3248,7 +3218,6 @@
                     if (Array.isArray(parsed)) return parsed;
                 } catch (e) {}
             }
-            // Fallback to defaults
             const defaultData = DEFAULT_TECHNICIANS.map(t => ({ name: t.name, supervisor: t.supervisor || false }));
             localStorage.setItem(TECH_STORAGE_KEY, JSON.stringify(defaultData));
             return defaultData;
@@ -3263,7 +3232,6 @@
         }
 
         function saveTechnicians(techArray) {
-            // techArray can be array of strings or objects {name, supervisor}
             const normalized = techArray.map(t => {
                 if (typeof t === 'string') return { name: t, supervisor: false };
                 return { name: t.name || t, supervisor: t.supervisor || false };
@@ -3375,7 +3343,7 @@
                 loadGitHubSettings();
                 initApp();
             } else {
-                errorEl.textContent = 'Invalid credentials. Try: user/123, asiri/123, or superadmin/Welcome@123';
+                errorEl.textContent = 'Invalid credentials. Please try again.';
                 errorEl.style.display = 'block';
             }
         }
@@ -3584,9 +3552,10 @@
                 await updateGitHubFile('overrides.json', JSON.stringify(overridesData, null, 2), 'Update overrides');
 
                 updateGitHubStatus('✅ Push successful! Data synced to GitHub.', 'success');
-                document.getElementById('backupTimestamp').innerText = '✅ GitHub Push OK';
+                updateBackupStatus('✅ GitHub Push OK', 'pushed');
             } catch (e) {
                 updateGitHubStatus('❌ Push failed: ' + e.message, 'error');
+                updateBackupStatus('❌ Push failed', 'error');
                 console.error('GitHub push error:', e);
             }
             isSyncing = false;
@@ -3617,6 +3586,7 @@
 
             isSyncing = true;
             if (!silent) updateGitHubStatus('⏳ Pulling from GitHub...', 'syncing');
+            updateBackupStatus('⏳ Pulling...', 'syncing');
             try {
                 const files = ['database.json', 'repair_history.json', 'water.json', 'users.json', 'technicians.json',
                     'overrides.json'
@@ -3690,18 +3660,22 @@
                     renderLoginHistory();
                     githubInitialReadDone = true;
                     if (!silent) updateGitHubStatus('✅ Pull successful! Data loaded from GitHub.', 'success');
+                    updateBackupStatus('✅ Pull OK', 'saved');
                     document.getElementById('backupTimestamp').innerText = '✅ GitHub Pull OK';
                 } else {
                     if (!silent) {
                         if (hasError) {
                             updateGitHubStatus('⚠️ Partial pull completed with some errors.', 'error');
+                            updateBackupStatus('⚠️ Partial pull', 'error');
                         } else {
                             updateGitHubStatus('ℹ️ No data found on GitHub. Repository may be empty.', 'info');
+                            updateBackupStatus('ℹ️ No data', 'saved');
                         }
                     }
                 }
             } catch (e) {
                 if (!silent) updateGitHubStatus('❌ Pull failed: ' + e.message, 'error');
+                updateBackupStatus('❌ Pull failed', 'error');
                 console.error('GitHub pull error:', e);
             }
             isSyncing = false;
@@ -3710,7 +3684,30 @@
         function triggerAutoSync() {
             if (!autoSyncEnabled || !githubToken || !githubRepo || isSyncing) return;
             clearTimeout(syncTimeout);
-            syncTimeout = setTimeout(() => { pushToGitHub(); }, 3000);
+            updateBackupStatus('⏳ Syncing...', 'syncing');
+            syncTimeout = setTimeout(() => {
+                pushToGitHub();
+            }, 3000);
+        }
+
+        // ---------- BACKUP STATUS (Home + Dashboard) ----------
+        function updateBackupStatus(message, type) {
+            const homeBadge = document.getElementById('homeBackupBadge');
+            const homeTime = document.getElementById('homeBackupTime');
+            const dashBadge = document.getElementById('backupTimestamp');
+            if (homeBadge) {
+                homeBadge.textContent = message;
+                homeBadge.className = 'status-badge ' + (type === 'saved' ? 'saved' : type === 'syncing' ? 'syncing' : type ===
+                    'pushed' ? 'pushed' : 'error');
+            }
+            if (homeTime) {
+                homeTime.textContent = 'Last: ' + new Date().toLocaleTimeString();
+            }
+            if (dashBadge) {
+                dashBadge.textContent = message;
+                dashBadge.className = 'inline-backup-badge ' + (type === 'saved' ? 'saved' : type === 'syncing' ? 'syncing' :
+                    type === 'pushed' ? 'pushed' : 'error');
+            }
         }
 
         // ---------- LOAD FROM GITHUB EXCEL (FIXED AUTO-LOAD) ----------
@@ -3741,6 +3738,7 @@
                 } else {
                     document.getElementById('backupTimestamp').innerText = '📥 Auto-loading...';
                 }
+                updateBackupStatus('⏳ Loading...', 'syncing');
 
                 console.log('Fetching Excel from GitHub...', url);
                 const response = await fetch(url);
@@ -3769,8 +3767,10 @@
                 if (!silent) {
                     alert('✅ Excel file loaded successfully from GitHub!');
                     document.getElementById('backupTimestamp').innerText = '✅ Loaded from GitHub';
+                    updateBackupStatus('✅ Loaded from GitHub', 'saved');
                 } else {
                     document.getElementById('backupTimestamp').innerText = '✅ Auto-loaded';
+                    updateBackupStatus('✅ Auto-loaded', 'saved');
                     if (autoSaveTimer) clearTimeout(autoSaveTimer);
                     autoSaveTimer = setTimeout(() => {
                         triggerAutoBackup();
@@ -3778,8 +3778,10 @@
                             pushToGitHub();
                         }
                         document.getElementById('backupTimestamp').innerText = '💾 Auto-saved after load';
+                        updateBackupStatus('💾 Auto-saved', 'saved');
                         setTimeout(() => {
                             document.getElementById('backupTimestamp').innerText = '💾 Saved';
+                            updateBackupStatus('💾 Saved', 'saved');
                         }, 2000);
                     }, 20000);
                 }
@@ -3787,6 +3789,7 @@
             } catch (error) {
                 console.error('GitHub load error:', error);
                 document.getElementById('backupTimestamp').innerText = '⚠️ Load failed';
+                updateBackupStatus('⚠️ Load failed', 'error');
                 if (!silent) {
                     alert('❌ Failed to load from GitHub: ' + error.message);
                 } else {
@@ -3802,6 +3805,7 @@
                     } else {
                         console.warn('Max retries reached. Auto-load aborted.');
                         document.getElementById('backupTimestamp').innerText = '⚠️ Load failed after retries';
+                        updateBackupStatus('⚠️ Load failed after retries', 'error');
                     }
                 }
             } finally {
@@ -3947,8 +3951,14 @@
                     waterData: waterMetricsDatabase,
                     timestamp: new Date().toLocaleTimeString()
                 });
-                tx.oncomplete = () => { document.getElementById('backupTimestamp').innerText = '💾 Saved'; };
-            } catch (err) { document.getElementById('backupTimestamp').innerText = '⚠️ Err'; }
+                tx.oncomplete = () => {
+                    document.getElementById('backupTimestamp').innerText = '💾 Saved';
+                    updateBackupStatus('💾 Saved', 'saved');
+                };
+            } catch (err) {
+                document.getElementById('backupTimestamp').innerText = '⚠️ Err';
+                updateBackupStatus('⚠️ Backup error', 'error');
+            }
         }
 
         async function checkAndExecuteAutoRecovery() {
@@ -3966,6 +3976,7 @@
                         if (waterMetricsDatabase.length === 0 && result.waterData) { waterMetricsDatabase = result
                             .waterData; }
                         document.getElementById('backupTimestamp').innerText = '♻️ Restored';
+                        updateBackupStatus('♻️ Restored', 'saved');
                         renderSchedule();
                     }
                 };
@@ -3986,6 +3997,7 @@
             renderLoginHistory();
             buildHomeGrid();
             showHome();
+            updateBackupStatus('💾 Ready', 'saved');
 
             // AUTO-LOAD FIX: Always attempt to load, with retry logic
             if (!autoLoadDone) {
@@ -4086,7 +4098,7 @@
                 'Monthly Roster': 'tab-MonthlyRoster',
                 'Repair History': 'tab-RepairHistory',
                 'Air Conditioner': 'cat-AC',
-                'Cold Room\\Refrigerator': 'cat-Cold',
+                'Cold Room / Refrigerator': 'cat-Cold',
                 'Electrical': 'cat-Elec',
                 'Battery System': 'cat-Batt',
                 'Generator': 'cat-Gen',
@@ -4160,7 +4172,7 @@
             { emoji: '📅', label: 'Monthly Roster', page: 'Monthly Roster' },
             { emoji: '🔧', label: 'Repair History', page: 'Repair History' },
             { emoji: '❄️', label: 'Air Conditioner', page: 'Air Conditioner' },
-            { emoji: '🌡️', label: 'Cold Room\\Refrigerator', page: 'Cold Room\\Refrigerator' },
+            { emoji: '🌡️', label: 'Cold Room / Refrigerator', page: 'Cold Room / Refrigerator' },
             { emoji: '⚡', label: 'Electrical', page: 'Electrical' },
             { emoji: '🔋', label: 'Battery System', page: 'Battery System' },
             { emoji: '⚙️', label: 'Generator', page: 'Generator' },
@@ -4220,7 +4232,7 @@
                 'Monthly Roster': 'Monthly Roster',
                 'Repair History': 'Repair History',
                 'Air Conditioner': 'Air Conditioner',
-                'Cold Room\\Refrigerator': 'Cold Room\\Refrigerator',
+                'Cold Room / Refrigerator': 'Cold Room / Refrigerator',
                 'Electrical': 'Electrical',
                 'Battery System': 'Battery System',
                 'Generator': 'Generator',
@@ -4476,7 +4488,7 @@
             document.getElementById('completedTasks').innerText = '0';
             const catEmojiMap = {
                 'Air Conditioner': '❄️',
-                'Cold Room\\Refrigerator': '🌡️',
+                'Cold Room / Refrigerator': '🌡️',
                 'Electrical': '⚡',
                 'Battery System': '🔋',
                 'Generator': '⚙️',
@@ -6648,7 +6660,7 @@
         // ---------- BUILD HOME GRID ----------
         buildHomeGrid();
 
-        console.log('Athena Maintenance Management System v2.0 - Loaded');
+        console.log('Athena Maintenance Management System v2.0 - Loaded (no Firebase)');
     </script>
 </body>
 </html>
