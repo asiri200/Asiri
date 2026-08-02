@@ -3142,6 +3142,7 @@
     <script>
         // ============================================================
         //  COMPLETE JAVASCRIPT – localStorage/IndexedDB version (no Firebase)
+        //  FIXED: Repair History auto-loads from GitHub Excel file
         // ============================================================
 
         // ---------- TECHNICIAN LIST (with supervisors) ----------
@@ -3722,7 +3723,7 @@
                 return;
             }
 
-            const url = 'https://raw.githubusercontent.com/asiri200/Asiri/2b19f508433d7b029231e25e9051368380ce3afb/MAS_Athena_Export_2026-07-28%20(2).xlsx';
+            const url = 'https://raw.githubusercontent.com/asiri200/Asiri/4110797fce236011d89249b61a05e827179b2771/MAS_Athena_Export_2026-07-28%20(2).xlsx';
 
             const btn = !silent ? document.getElementById('loadFromGitHubBtn') : null;
             const originalText = btn ? btn.textContent : '📥 Load from GitHub';
@@ -4395,19 +4396,143 @@
             triggerAutoSync();
         }
 
-        // ---------- RENDER SCHEDULE ----------
+        // ============================================================
+        //  RENDER SCHEDULE – MODIFIED TO AUTO-LOAD REPAIR HISTORY
+        // ============================================================
         function renderSchedule() {
             const container = document.getElementById('scheduleContainer');
             const targetDate = document.getElementById('viewDate').value;
             container.innerHTML = '';
+
+            // If Repair History tab, load from GitHub Excel first
+            if (currentPage === 'Repair History') {
+                loadRepairHistoryFromGitHub(container);
+                return;
+            }
+
             if (currentPage === 'Water Meter Reading') { renderWaterMeter(container, targetDate); return; }
             if (currentPage === 'Next Week Allocation') { renderWeekAllocation(container); return; }
             if (currentPage === 'Next Month Allocation') { renderMonthAllocation(container); return; }
             if (currentPage === 'Duty Roster') { renderDutyRoster(container); return; }
             if (currentPage === 'Monthly Roster') { renderMonthlyRoster(container); return; }
-            if (currentPage === 'Repair History') { renderRepairHistory(container); return; }
             if (currentPage === 'Today Overview') { renderTodayOverview(container, targetDate); return; }
             renderCategoryPage(container, targetDate);
+        }
+
+        // ---------- REPAIR HISTORY FROM GITHUB EXCEL ----------
+        async function loadRepairHistoryFromGitHub(container) {
+            // Show loading state
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">⏳</div>
+                    <p>Loading Repair History from GitHub...</p>
+                </div>
+            `;
+
+            const url = 'https://raw.githubusercontent.com/asiri200/Asiri/4110797fce236011d89249b61a05e827179b2771/MAS_Athena_Export_2026-07-28%20(2).xlsx';
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const arrayBuffer = await response.arrayBuffer();
+                const file = new File([arrayBuffer], 'MAS_Athena_Export.xlsx', {
+                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                });
+
+                // Parse the Excel file
+                const wb = XLSX.read(new Uint8Array(arrayBuffer), { type: 'array' });
+                let repairData = [];
+
+                // Look for "Repair History" sheet
+                const sheetName = wb.SheetNames.find(s => s.includes("Repair History"));
+                if (sheetName) {
+                    const rows = XLSX.utils.sheet_to_json(wb.Sheets[sheetName]);
+                    repairData = rows.map(row => ({
+                        id: 'REP-' + String(Math.floor(Math.random() * 10000)).padStart(4, '0'),
+                        date: String(row.Date || row.date || '').trim(),
+                        equipment: String(row.Equipment || row.equipment || 'N/A').trim(),
+                        location: String(row.Location || row.location || 'N/A').trim(),
+                        technician: String(row.Technician || row.technician || 'Unassigned').trim(),
+                        details: String(row.Details || row.details || '').trim(),
+                        priority: String(row.Priority || row.priority || 'low').toLowerCase().trim(),
+                        status: String(row.Status || row.status || 'pending').toLowerCase().trim(),
+                        repairDate: String(row['Repair Date'] || row.repairDate || '').trim(),
+                        repairType: String(row['Repair Type'] || row.repairType || '').trim(),
+                        category: String(row.Category || row.category || 'Repair History').trim(),
+                        _source: 'github'
+                    }));
+                }
+
+                // Also look for "Maintenance" sheet for additional repair records
+                const maintSheet = wb.SheetNames.find(s => s.includes("Maintenance"));
+                if (maintSheet) {
+                    const rows = XLSX.utils.sheet_to_json(wb.Sheets[maintSheet]);
+                    rows.forEach(row => {
+                        if (row.date && row.category) {
+                            repairData.push({
+                                id: 'REP-' + String(Math.floor(Math.random() * 10000)).padStart(4, '0'),
+                                date: String(row.date).trim(),
+                                equipment: String(row.equipment || 'N/A').trim(),
+                                location: String(row.location || 'N/A').trim(),
+                                technician: String(row.technician || 'Unassigned').trim(),
+                                details: String(row.details || '').trim(),
+                                priority: String(row.priority || 'low').toLowerCase().trim(),
+                                status: String(row.status || 'pending').toLowerCase().trim(),
+                                repairDate: String(row.repairDate || '').trim(),
+                                repairType: String(row.repairType || '').trim(),
+                                category: String(row.category || 'Repair History').trim(),
+                                _source: 'github'
+                            });
+                        }
+                    });
+                }
+
+                if (repairData.length > 0) {
+                    // Store in repairHistoryDatabase
+                    repairHistoryDatabase = repairData;
+                    // Save to localStorage for persistence
+                    localStorage.setItem('athena_repair_history', JSON.stringify(repairData));
+                    updateBackupStatus('✅ Repair History loaded from GitHub', 'saved');
+                    // Now render the repair history
+                    renderRepairHistory(container);
+                } else {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="icon">📭</div>
+                            <p>No repair records found in the Excel file.</p>
+                            <p style="font-size:0.8rem;color:#6b7280;">Make sure the file has a "Repair History" sheet.</p>
+                        </div>
+                    `;
+                    updateBackupStatus('⚠️ No repair data found', 'error');
+                }
+
+            } catch (error) {
+                console.error('Error loading repair history:', error);
+                // Try to load from localStorage as fallback
+                const saved = localStorage.getItem('athena_repair_history');
+                if (saved) {
+                    try {
+                        repairHistoryDatabase = JSON.parse(saved);
+                        renderRepairHistory(container);
+                        updateBackupStatus('♻️ Repair History loaded from cache', 'saved');
+                        return;
+                    } catch (e) {}
+                }
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">❌</div>
+                        <p>Failed to load Repair History from GitHub.</p>
+                        <p style="font-size:0.8rem;color:#6b7280;">${error.message}</p>
+                        <button class="btn btn-primary btn-sm" onclick="loadRepairHistoryFromGitHub(document.getElementById('scheduleContainer'))" style="margin-top:12px;">
+                            🔄 Retry
+                        </button>
+                    </div>
+                `;
+                updateBackupStatus('❌ Failed to load repair data', 'error');
+            }
         }
 
         // ---------- WATER METER RENDER ----------
