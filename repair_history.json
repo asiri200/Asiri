@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-04T03:57:43.257Z",
+  "timestamp": "2026-08-04T03:59:03.676Z",
   "records": [
     {
       "id": "REP-3294",
@@ -494,7 +494,7 @@
     {
       "id": "REP-3189",
       "date": "2026-08-28",
-      "equipment": "Tamarind 01ÃÂ ÃÂ ÃÂ  (C-29)",
+      "equipment": "Tamarind 01ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-29)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -508,7 +508,7 @@
     {
       "id": "REP-2460",
       "date": "2026-08-28",
-      "equipment": "Tamarind 03ÃÂ ÃÂ  (B-1)",
+      "equipment": "Tamarind 03ÃÂÃÂ ÃÂÃÂ  (B-1)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -522,7 +522,7 @@
     {
       "id": "REP-5444",
       "date": "2026-08-31",
-      "equipment": "Tamarind 04ÃÂ ÃÂ  (C-28)",
+      "equipment": "Tamarind 04ÃÂÃÂ ÃÂÃÂ  (C-28)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -536,7 +536,7 @@
     {
       "id": "REP-4016",
       "date": "2026-08-31",
-      "equipment": "Tamarind 06ÃÂ ÃÂ  (C-26)",
+      "equipment": "Tamarind 06ÃÂÃÂ ÃÂÃÂ  (C-26)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -550,7 +550,7 @@
     {
       "id": "REP-9817",
       "date": "2026-09-02",
-      "equipment": "Tamarind 07ÃÂ ÃÂ  (C-24)",
+      "equipment": "Tamarind 07ÃÂÃÂ ÃÂÃÂ  (C-24)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -564,7 +564,7 @@
     {
       "id": "REP-6057",
       "date": "2026-09-02",
-      "equipment": "Tamarind 08ÃÂ ÃÂ ÃÂ  (C-25)",
+      "equipment": "Tamarind 08ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-25)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -578,7 +578,7 @@
     {
       "id": "REP-7448",
       "date": "2026-09-04",
-      "equipment": "Tamarind 09ÃÂ ÃÂ ÃÂ  (C-23)",
+      "equipment": "Tamarind 09ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-23)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -592,7 +592,7 @@
     {
       "id": "REP-7787",
       "date": "2026-09-04",
-      "equipment": "Tamarind 10ÃÂ ÃÂ  (C-22)",
+      "equipment": "Tamarind 10ÃÂÃÂ ÃÂÃÂ  (C-22)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -606,7 +606,7 @@
     {
       "id": "REP-2828",
       "date": "2026-09-07",
-      "equipment": "Tamarind 11ÃÂ ÃÂ  (C-20)",
+      "equipment": "Tamarind 11ÃÂÃÂ ÃÂÃÂ  (C-20)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -620,7 +620,7 @@
     {
       "id": "REP-0394",
       "date": "2026-09-07",
-      "equipment": "Tamarind 12ÃÂ ÃÂ ÃÂ  (C-21)",
+      "equipment": "Tamarind 12ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-21)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -634,7 +634,7 @@
     {
       "id": "REP-6479",
       "date": "2026-09-09",
-      "equipment": "Tamarind 13ÃÂ ÃÂ ÃÂ  (C-19)",
+      "equipment": "Tamarind 13ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-19)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -648,7 +648,7 @@
     {
       "id": "REP-8976",
       "date": "2026-09-09",
-      "equipment": "Tamarind 16ÃÂ ÃÂ ÃÂ  (C-17)",
+      "equipment": "Tamarind 16ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-17)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -662,7 +662,7 @@
     {
       "id": "REP-2956",
       "date": "2026-09-11",
-      "equipment": "Tamarind 17ÃÂ ÃÂ ÃÂ ÃÂ  (C-15)",
+      "equipment": "Tamarind 17ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-15)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -676,7 +676,7 @@
     {
       "id": "REP-7261",
       "date": "2026-09-11",
-      "equipment": "Greenfield 02ÃÂ ÃÂ ÃÂ  (C-11)",
+      "equipment": "Greenfield 02ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-11)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -690,7 +690,7 @@
     {
       "id": "REP-0650",
       "date": "2026-09-14",
-      "equipment": "Greenfield 03ÃÂ ÃÂ  (C-12)",
+      "equipment": "Greenfield 03ÃÂÃÂ ÃÂÃÂ  (C-12)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -704,7 +704,7 @@
     {
       "id": "REP-0433",
       "date": "2026-09-14",
-      "equipment": "Greenfield 04ÃÂ ÃÂ  (C-10)",
+      "equipment": "Greenfield 04ÃÂÃÂ ÃÂÃÂ  (C-10)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -718,7 +718,7 @@
     {
       "id": "REP-5280",
       "date": "2026-09-16",
-      "equipment": "Greenfield 05ÃÂ ÃÂ  (C-09)",
+      "equipment": "Greenfield 05ÃÂÃÂ ÃÂÃÂ  (C-09)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -732,7 +732,7 @@
     {
       "id": "REP-9418",
       "date": "2026-09-16",
-      "equipment": "Greenfield 06ÃÂ ÃÂ  (C-44)",
+      "equipment": "Greenfield 06ÃÂÃÂ ÃÂÃÂ  (C-44)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -746,7 +746,7 @@
     {
       "id": "REP-0101",
       "date": "2026-09-18",
-      "equipment": "Greenfield 07ÃÂ ÃÂ ÃÂ  (C-08)",
+      "equipment": "Greenfield 07ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-08)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -760,7 +760,7 @@
     {
       "id": "REP-5151",
       "date": "2026-09-18",
-      "equipment": "Greenfield 11ÃÂ ÃÂ ÃÂ  (C-07)",
+      "equipment": "Greenfield 11ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-07)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -774,7 +774,7 @@
     {
       "id": "REP-3640",
       "date": "2026-09-21",
-      "equipment": "Greenfield 13ÃÂ ÃÂ  (C-06)",
+      "equipment": "Greenfield 13ÃÂÃÂ ÃÂÃÂ  (C-06)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -788,7 +788,7 @@
     {
       "id": "REP-3315",
       "date": "2026-09-21",
-      "equipment": "Rockland 01ÃÂ ÃÂ  (C-14)",
+      "equipment": "Rockland 01ÃÂÃÂ ÃÂÃÂ  (C-14)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -802,7 +802,7 @@
     {
       "id": "REP-2246",
       "date": "2026-09-23",
-      "equipment": "Rockland 03ÃÂ ÃÂ  (C-40)",
+      "equipment": "Rockland 03ÃÂÃÂ ÃÂÃÂ  (C-40)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -816,7 +816,7 @@
     {
       "id": "REP-6559",
       "date": "2026-09-23",
-      "equipment": "Rockland 04ÃÂ ÃÂ  (C-43)",
+      "equipment": "Rockland 04ÃÂÃÂ ÃÂÃÂ  (C-43)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -830,7 +830,7 @@
     {
       "id": "REP-4880",
       "date": "2026-09-25",
-      "equipment": "Rockland 07ÃÂ ÃÂ  (C-39)",
+      "equipment": "Rockland 07ÃÂÃÂ ÃÂÃÂ  (C-39)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -844,7 +844,7 @@
     {
       "id": "REP-7125",
       "date": "2026-09-25",
-      "equipment": "Rockland 09ÃÂ ÃÂ  (C-36)",
+      "equipment": "Rockland 09ÃÂÃÂ ÃÂÃÂ  (C-36)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -858,7 +858,7 @@
     {
       "id": "REP-1235",
       "date": "2026-09-28",
-      "equipment": "Rockland 10ÃÂ ÃÂ  (C-34)",
+      "equipment": "Rockland 10ÃÂÃÂ ÃÂÃÂ  (C-34)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -872,7 +872,7 @@
     {
       "id": "REP-2917",
       "date": "2026-09-28",
-      "equipment": "Rockland 12ÃÂ ÃÂ  (C-33)",
+      "equipment": "Rockland 12ÃÂÃÂ ÃÂÃÂ  (C-33)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -886,7 +886,7 @@
     {
       "id": "REP-0309",
       "date": "2026-09-30",
-      "equipment": "Rockland 13ÃÂ ÃÂ  (C-32)",
+      "equipment": "Rockland 13ÃÂÃÂ ÃÂÃÂ  (C-32)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -900,7 +900,7 @@
     {
       "id": "REP-0734",
       "date": "2026-09-30",
-      "equipment": "Lakeside 03ÃÂ ÃÂ  (D-06)",
+      "equipment": "Lakeside 03ÃÂÃÂ ÃÂÃÂ  (D-06)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -914,7 +914,7 @@
     {
       "id": "REP-9539",
       "date": "2026-10-02",
-      "equipment": "Lakeside 04ÃÂ ÃÂ  (D-08)",
+      "equipment": "Lakeside 04ÃÂÃÂ ÃÂÃÂ  (D-08)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -928,7 +928,7 @@
     {
       "id": "REP-9541",
       "date": "2026-10-02",
-      "equipment": "Lakeside 08ÃÂ ÃÂ ÃÂ  (D-14)",
+      "equipment": "Lakeside 08ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-14)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -942,7 +942,7 @@
     {
       "id": "REP-2247",
       "date": "2026-10-05",
-      "equipment": "Lakeside 12ÃÂ ÃÂ  (D-31)",
+      "equipment": "Lakeside 12ÃÂÃÂ ÃÂÃÂ  (D-31)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -956,7 +956,7 @@
     {
       "id": "REP-8259",
       "date": "2026-10-05",
-      "equipment": "Woodlands 04ÃÂ  (D-24)",
+      "equipment": "Woodlands 04ÃÂÃÂ  (D-24)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -970,7 +970,7 @@
     {
       "id": "REP-0401",
       "date": "2026-10-07",
-      "equipment": "Woodlands 07ÃÂ  (D-34)",
+      "equipment": "Woodlands 07ÃÂÃÂ  (D-34)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -984,7 +984,7 @@
     {
       "id": "REP-9050",
       "date": "2026-10-07",
-      "equipment": "Woodlands 08ÃÂ ÃÂ  (D-26)",
+      "equipment": "Woodlands 08ÃÂÃÂ ÃÂÃÂ  (D-26)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -998,7 +998,7 @@
     {
       "id": "REP-9834",
       "date": "2026-10-09",
-      "equipment": "Woodlands 09ÃÂ ÃÂ ÃÂ  (D-35)",
+      "equipment": "Woodlands 09ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-35)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1012,7 +1012,7 @@
     {
       "id": "REP-1583",
       "date": "2026-10-09",
-      "equipment": "Woodlands 10ÃÂ ÃÂ ÃÂ  (D-36)",
+      "equipment": "Woodlands 10ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-36)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1026,7 +1026,7 @@
     {
       "id": "REP-3515",
       "date": "2026-10-12",
-      "equipment": "Woodlands 11ÃÂ ÃÂ ÃÂ  (D-27)",
+      "equipment": "Woodlands 11ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-27)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1040,7 +1040,7 @@
     {
       "id": "REP-4335",
       "date": "2026-10-12",
-      "equipment": "South Court 01ÃÂ ÃÂ ÃÂ  (D-03)",
+      "equipment": "South Court 01ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-03)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1054,7 +1054,7 @@
     {
       "id": "REP-1685",
       "date": "2026-10-14",
-      "equipment": "South Court 05ÃÂ ÃÂ  (D-05)",
+      "equipment": "South Court 05ÃÂÃÂ ÃÂÃÂ  (D-05)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1068,7 +1068,7 @@
     {
       "id": "REP-6727",
       "date": "2026-10-14",
-      "equipment": "South Court 06ÃÂ ÃÂ  (D-07)",
+      "equipment": "South Court 06ÃÂÃÂ ÃÂÃÂ  (D-07)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1082,7 +1082,7 @@
     {
       "id": "REP-1870",
       "date": "2026-10-16",
-      "equipment": "South Court 08ÃÂ ÃÂ  (D-12)",
+      "equipment": "South Court 08ÃÂÃÂ ÃÂÃÂ  (D-12)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1096,7 +1096,7 @@
     {
       "id": "REP-6904",
       "date": "2026-10-16",
-      "equipment": "North Court 01ÃÂ ÃÂ  (D-39)",
+      "equipment": "North Court 01ÃÂÃÂ ÃÂÃÂ  (D-39)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1110,7 +1110,7 @@
     {
       "id": "REP-3421",
       "date": "2026-10-19",
-      "equipment": "North Court 02ÃÂ ÃÂ  (D-40)",
+      "equipment": "North Court 02ÃÂÃÂ ÃÂÃÂ  (D-40)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1124,7 +1124,7 @@
     {
       "id": "REP-2547",
       "date": "2026-10-19",
-      "equipment": "North Court 03ÃÂ ÃÂ  (D-44)",
+      "equipment": "North Court 03ÃÂÃÂ ÃÂÃÂ  (D-44)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1138,7 +1138,7 @@
     {
       "id": "REP-6810",
       "date": "2026-10-21",
-      "equipment": "North Court 04ÃÂ ÃÂ  (D-45)",
+      "equipment": "North Court 04ÃÂÃÂ ÃÂÃÂ  (D-45)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1152,7 +1152,7 @@
     {
       "id": "REP-6241",
       "date": "2026-10-21",
-      "equipment": "North Court 05ÃÂ ÃÂ  (D-49)",
+      "equipment": "North Court 05ÃÂÃÂ ÃÂÃÂ  (D-49)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1166,7 +1166,7 @@
     {
       "id": "REP-8956",
       "date": "2026-10-23",
-      "equipment": "North Court 06ÃÂ ÃÂ  (D-48)",
+      "equipment": "North Court 06ÃÂÃÂ ÃÂÃÂ  (D-48)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1180,7 +1180,7 @@
     {
       "id": "REP-4445",
       "date": "2026-10-23",
-      "equipment": "Downtown 01ÃÂ ÃÂ  (D-41)",
+      "equipment": "Downtown 01ÃÂÃÂ ÃÂÃÂ  (D-41)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1194,7 +1194,7 @@
     {
       "id": "REP-4753",
       "date": "2026-10-26",
-      "equipment": "Downtown 02ÃÂ ÃÂ  (D-42)",
+      "equipment": "Downtown 02ÃÂÃÂ ÃÂÃÂ  (D-42)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1208,7 +1208,7 @@
     {
       "id": "REP-9305",
       "date": "2026-10-26",
-      "equipment": "Downtown 03ÃÂ ÃÂ  (D-43)",
+      "equipment": "Downtown 03ÃÂÃÂ ÃÂÃÂ  (D-43)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1222,7 +1222,7 @@
     {
       "id": "REP-5851",
       "date": "2026-10-28",
-      "equipment": "Downtown 04ÃÂ ÃÂ ÃÂ  (D-46)",
+      "equipment": "Downtown 04ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-46)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1236,7 +1236,7 @@
     {
       "id": "REP-9649",
       "date": "2026-10-28",
-      "equipment": "Downtown 05ÃÂ ÃÂ ÃÂ  (D-47)",
+      "equipment": "Downtown 05ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-47)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1250,7 +1250,7 @@
     {
       "id": "REP-5108",
       "date": "2026-10-30",
-      "equipment": "Hillcrest 01ÃÂ ÃÂ ÃÂ ÃÂ ÃÂ  (D-51)",
+      "equipment": "Hillcrest 01ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-51)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -1614,7 +1614,7 @@
     {
       "id": "REP-8319",
       "date": "2026-11-23",
-      "equipment": "MFPÃÂ  Stors",
+      "equipment": "MFPÃÂÃÂ  Stors",
       "location": "MFP",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17070,7 +17070,7 @@
     {
       "id": "REP-7466",
       "date": "2026-08-28",
-      "equipment": "Tamarind 01ÃÂ ÃÂ ÃÂ  (C-29)",
+      "equipment": "Tamarind 01ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-29)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17084,7 +17084,7 @@
     {
       "id": "REP-3853",
       "date": "2026-08-28",
-      "equipment": "Tamarind 03ÃÂ ÃÂ  (B-1)",
+      "equipment": "Tamarind 03ÃÂÃÂ ÃÂÃÂ  (B-1)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17098,7 +17098,7 @@
     {
       "id": "REP-5105",
       "date": "2026-08-31",
-      "equipment": "Tamarind 04ÃÂ ÃÂ  (C-28)",
+      "equipment": "Tamarind 04ÃÂÃÂ ÃÂÃÂ  (C-28)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17112,7 +17112,7 @@
     {
       "id": "REP-3151",
       "date": "2026-08-31",
-      "equipment": "Tamarind 06ÃÂ ÃÂ  (C-26)",
+      "equipment": "Tamarind 06ÃÂÃÂ ÃÂÃÂ  (C-26)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17126,7 +17126,7 @@
     {
       "id": "REP-6052",
       "date": "2026-09-02",
-      "equipment": "Tamarind 07ÃÂ ÃÂ  (C-24)",
+      "equipment": "Tamarind 07ÃÂÃÂ ÃÂÃÂ  (C-24)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17140,7 +17140,7 @@
     {
       "id": "REP-0354",
       "date": "2026-09-02",
-      "equipment": "Tamarind 08ÃÂ ÃÂ ÃÂ  (C-25)",
+      "equipment": "Tamarind 08ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-25)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17154,7 +17154,7 @@
     {
       "id": "REP-2783",
       "date": "2026-09-04",
-      "equipment": "Tamarind 09ÃÂ ÃÂ ÃÂ  (C-23)",
+      "equipment": "Tamarind 09ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-23)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17168,7 +17168,7 @@
     {
       "id": "REP-6459",
       "date": "2026-09-04",
-      "equipment": "Tamarind 10ÃÂ ÃÂ  (C-22)",
+      "equipment": "Tamarind 10ÃÂÃÂ ÃÂÃÂ  (C-22)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17182,7 +17182,7 @@
     {
       "id": "REP-5570",
       "date": "2026-09-07",
-      "equipment": "Tamarind 11ÃÂ ÃÂ  (C-20)",
+      "equipment": "Tamarind 11ÃÂÃÂ ÃÂÃÂ  (C-20)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17196,7 +17196,7 @@
     {
       "id": "REP-0824",
       "date": "2026-09-07",
-      "equipment": "Tamarind 12ÃÂ ÃÂ ÃÂ  (C-21)",
+      "equipment": "Tamarind 12ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-21)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17210,7 +17210,7 @@
     {
       "id": "REP-5800",
       "date": "2026-09-09",
-      "equipment": "Tamarind 13ÃÂ ÃÂ ÃÂ  (C-19)",
+      "equipment": "Tamarind 13ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-19)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17224,7 +17224,7 @@
     {
       "id": "REP-4029",
       "date": "2026-09-09",
-      "equipment": "Tamarind 16ÃÂ ÃÂ ÃÂ  (C-17)",
+      "equipment": "Tamarind 16ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-17)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17238,7 +17238,7 @@
     {
       "id": "REP-6124",
       "date": "2026-09-11",
-      "equipment": "Tamarind 17ÃÂ ÃÂ ÃÂ ÃÂ  (C-15)",
+      "equipment": "Tamarind 17ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-15)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17252,7 +17252,7 @@
     {
       "id": "REP-0886",
       "date": "2026-09-11",
-      "equipment": "Greenfield 02ÃÂ ÃÂ ÃÂ  (C-11)",
+      "equipment": "Greenfield 02ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-11)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17266,7 +17266,7 @@
     {
       "id": "REP-2590",
       "date": "2026-09-14",
-      "equipment": "Greenfield 03ÃÂ ÃÂ  (C-12)",
+      "equipment": "Greenfield 03ÃÂÃÂ ÃÂÃÂ  (C-12)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17280,7 +17280,7 @@
     {
       "id": "REP-6718",
       "date": "2026-09-14",
-      "equipment": "Greenfield 04ÃÂ ÃÂ  (C-10)",
+      "equipment": "Greenfield 04ÃÂÃÂ ÃÂÃÂ  (C-10)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17294,7 +17294,7 @@
     {
       "id": "REP-8460",
       "date": "2026-09-16",
-      "equipment": "Greenfield 05ÃÂ ÃÂ  (C-09)",
+      "equipment": "Greenfield 05ÃÂÃÂ ÃÂÃÂ  (C-09)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17308,7 +17308,7 @@
     {
       "id": "REP-4693",
       "date": "2026-09-16",
-      "equipment": "Greenfield 06ÃÂ ÃÂ  (C-44)",
+      "equipment": "Greenfield 06ÃÂÃÂ ÃÂÃÂ  (C-44)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17322,7 +17322,7 @@
     {
       "id": "REP-7675",
       "date": "2026-09-18",
-      "equipment": "Greenfield 07ÃÂ ÃÂ ÃÂ  (C-08)",
+      "equipment": "Greenfield 07ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-08)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17336,7 +17336,7 @@
     {
       "id": "REP-0654",
       "date": "2026-09-18",
-      "equipment": "Greenfield 11ÃÂ ÃÂ ÃÂ  (C-07)",
+      "equipment": "Greenfield 11ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (C-07)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17350,7 +17350,7 @@
     {
       "id": "REP-6111",
       "date": "2026-09-21",
-      "equipment": "Greenfield 13ÃÂ ÃÂ  (C-06)",
+      "equipment": "Greenfield 13ÃÂÃÂ ÃÂÃÂ  (C-06)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17364,7 +17364,7 @@
     {
       "id": "REP-2517",
       "date": "2026-09-21",
-      "equipment": "Rockland 01ÃÂ ÃÂ  (C-14)",
+      "equipment": "Rockland 01ÃÂÃÂ ÃÂÃÂ  (C-14)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17378,7 +17378,7 @@
     {
       "id": "REP-4219",
       "date": "2026-09-23",
-      "equipment": "Rockland 03ÃÂ ÃÂ  (C-40)",
+      "equipment": "Rockland 03ÃÂÃÂ ÃÂÃÂ  (C-40)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17392,7 +17392,7 @@
     {
       "id": "REP-0253",
       "date": "2026-09-23",
-      "equipment": "Rockland 04ÃÂ ÃÂ  (C-43)",
+      "equipment": "Rockland 04ÃÂÃÂ ÃÂÃÂ  (C-43)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17406,7 +17406,7 @@
     {
       "id": "REP-4130",
       "date": "2026-09-25",
-      "equipment": "Rockland 07ÃÂ ÃÂ  (C-39)",
+      "equipment": "Rockland 07ÃÂÃÂ ÃÂÃÂ  (C-39)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17420,7 +17420,7 @@
     {
       "id": "REP-8295",
       "date": "2026-09-25",
-      "equipment": "Rockland 09ÃÂ ÃÂ  (C-36)",
+      "equipment": "Rockland 09ÃÂÃÂ ÃÂÃÂ  (C-36)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17434,7 +17434,7 @@
     {
       "id": "REP-1805",
       "date": "2026-09-28",
-      "equipment": "Rockland 10ÃÂ ÃÂ  (C-34)",
+      "equipment": "Rockland 10ÃÂÃÂ ÃÂÃÂ  (C-34)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17448,7 +17448,7 @@
     {
       "id": "REP-0907",
       "date": "2026-09-28",
-      "equipment": "Rockland 12ÃÂ ÃÂ  (C-33)",
+      "equipment": "Rockland 12ÃÂÃÂ ÃÂÃÂ  (C-33)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17462,7 +17462,7 @@
     {
       "id": "REP-0264",
       "date": "2026-09-30",
-      "equipment": "Rockland 13ÃÂ ÃÂ  (C-32)",
+      "equipment": "Rockland 13ÃÂÃÂ ÃÂÃÂ  (C-32)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17476,7 +17476,7 @@
     {
       "id": "REP-1916",
       "date": "2026-09-30",
-      "equipment": "Lakeside 03ÃÂ ÃÂ  (D-06)",
+      "equipment": "Lakeside 03ÃÂÃÂ ÃÂÃÂ  (D-06)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17490,7 +17490,7 @@
     {
       "id": "REP-2702",
       "date": "2026-10-02",
-      "equipment": "Lakeside 04ÃÂ ÃÂ  (D-08)",
+      "equipment": "Lakeside 04ÃÂÃÂ ÃÂÃÂ  (D-08)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17504,7 +17504,7 @@
     {
       "id": "REP-0259",
       "date": "2026-10-02",
-      "equipment": "Lakeside 08ÃÂ ÃÂ ÃÂ  (D-14)",
+      "equipment": "Lakeside 08ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-14)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17518,7 +17518,7 @@
     {
       "id": "REP-4245",
       "date": "2026-10-05",
-      "equipment": "Lakeside 12ÃÂ ÃÂ  (D-31)",
+      "equipment": "Lakeside 12ÃÂÃÂ ÃÂÃÂ  (D-31)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17532,7 +17532,7 @@
     {
       "id": "REP-2583",
       "date": "2026-10-05",
-      "equipment": "Woodlands 04ÃÂ  (D-24)",
+      "equipment": "Woodlands 04ÃÂÃÂ  (D-24)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17546,7 +17546,7 @@
     {
       "id": "REP-9087",
       "date": "2026-10-07",
-      "equipment": "Woodlands 07ÃÂ  (D-34)",
+      "equipment": "Woodlands 07ÃÂÃÂ  (D-34)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17560,7 +17560,7 @@
     {
       "id": "REP-5805",
       "date": "2026-10-07",
-      "equipment": "Woodlands 08ÃÂ ÃÂ  (D-26)",
+      "equipment": "Woodlands 08ÃÂÃÂ ÃÂÃÂ  (D-26)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17574,7 +17574,7 @@
     {
       "id": "REP-8037",
       "date": "2026-10-09",
-      "equipment": "Woodlands 09ÃÂ ÃÂ ÃÂ  (D-35)",
+      "equipment": "Woodlands 09ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-35)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17588,7 +17588,7 @@
     {
       "id": "REP-3603",
       "date": "2026-10-09",
-      "equipment": "Woodlands 10ÃÂ ÃÂ ÃÂ  (D-36)",
+      "equipment": "Woodlands 10ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-36)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17602,7 +17602,7 @@
     {
       "id": "REP-3039",
       "date": "2026-10-12",
-      "equipment": "Woodlands 11ÃÂ ÃÂ ÃÂ  (D-27)",
+      "equipment": "Woodlands 11ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-27)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17616,7 +17616,7 @@
     {
       "id": "REP-9700",
       "date": "2026-10-12",
-      "equipment": "South Court 01ÃÂ ÃÂ ÃÂ  (D-03)",
+      "equipment": "South Court 01ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-03)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17630,7 +17630,7 @@
     {
       "id": "REP-9028",
       "date": "2026-10-14",
-      "equipment": "South Court 05ÃÂ ÃÂ  (D-05)",
+      "equipment": "South Court 05ÃÂÃÂ ÃÂÃÂ  (D-05)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17644,7 +17644,7 @@
     {
       "id": "REP-2640",
       "date": "2026-10-14",
-      "equipment": "South Court 06ÃÂ ÃÂ  (D-07)",
+      "equipment": "South Court 06ÃÂÃÂ ÃÂÃÂ  (D-07)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17658,7 +17658,7 @@
     {
       "id": "REP-4890",
       "date": "2026-10-16",
-      "equipment": "South Court 08ÃÂ ÃÂ  (D-12)",
+      "equipment": "South Court 08ÃÂÃÂ ÃÂÃÂ  (D-12)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17672,7 +17672,7 @@
     {
       "id": "REP-8999",
       "date": "2026-10-16",
-      "equipment": "North Court 01ÃÂ ÃÂ  (D-39)",
+      "equipment": "North Court 01ÃÂÃÂ ÃÂÃÂ  (D-39)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17686,7 +17686,7 @@
     {
       "id": "REP-9279",
       "date": "2026-10-19",
-      "equipment": "North Court 02ÃÂ ÃÂ  (D-40)",
+      "equipment": "North Court 02ÃÂÃÂ ÃÂÃÂ  (D-40)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17700,7 +17700,7 @@
     {
       "id": "REP-8443",
       "date": "2026-10-19",
-      "equipment": "North Court 03ÃÂ ÃÂ  (D-44)",
+      "equipment": "North Court 03ÃÂÃÂ ÃÂÃÂ  (D-44)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17714,7 +17714,7 @@
     {
       "id": "REP-9678",
       "date": "2026-10-21",
-      "equipment": "North Court 04ÃÂ ÃÂ  (D-45)",
+      "equipment": "North Court 04ÃÂÃÂ ÃÂÃÂ  (D-45)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17728,7 +17728,7 @@
     {
       "id": "REP-7344",
       "date": "2026-10-21",
-      "equipment": "North Court 05ÃÂ ÃÂ  (D-49)",
+      "equipment": "North Court 05ÃÂÃÂ ÃÂÃÂ  (D-49)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17742,7 +17742,7 @@
     {
       "id": "REP-8467",
       "date": "2026-10-23",
-      "equipment": "North Court 06ÃÂ ÃÂ  (D-48)",
+      "equipment": "North Court 06ÃÂÃÂ ÃÂÃÂ  (D-48)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17756,7 +17756,7 @@
     {
       "id": "REP-6468",
       "date": "2026-10-23",
-      "equipment": "Downtown 01ÃÂ ÃÂ  (D-41)",
+      "equipment": "Downtown 01ÃÂÃÂ ÃÂÃÂ  (D-41)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17770,7 +17770,7 @@
     {
       "id": "REP-5391",
       "date": "2026-10-26",
-      "equipment": "Downtown 02ÃÂ ÃÂ  (D-42)",
+      "equipment": "Downtown 02ÃÂÃÂ ÃÂÃÂ  (D-42)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17784,7 +17784,7 @@
     {
       "id": "REP-9128",
       "date": "2026-10-26",
-      "equipment": "Downtown 03ÃÂ ÃÂ  (D-43)",
+      "equipment": "Downtown 03ÃÂÃÂ ÃÂÃÂ  (D-43)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17798,7 +17798,7 @@
     {
       "id": "REP-6637",
       "date": "2026-10-28",
-      "equipment": "Downtown 04ÃÂ ÃÂ ÃÂ  (D-46)",
+      "equipment": "Downtown 04ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-46)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17812,7 +17812,7 @@
     {
       "id": "REP-8250",
       "date": "2026-10-28",
-      "equipment": "Downtown 05ÃÂ ÃÂ ÃÂ  (D-47)",
+      "equipment": "Downtown 05ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-47)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -17826,7 +17826,7 @@
     {
       "id": "REP-0332",
       "date": "2026-10-30",
-      "equipment": "Hillcrest 01ÃÂ ÃÂ ÃÂ ÃÂ ÃÂ  (D-51)",
+      "equipment": "Hillcrest 01ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ ÃÂÃÂ  (D-51)",
       "location": "Housing",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
@@ -18190,7 +18190,7 @@
     {
       "id": "REP-6665",
       "date": "2026-11-23",
-      "equipment": "MFPÃÂ  Stors",
+      "equipment": "MFPÃÂÃÂ  Stors",
       "location": "MFP",
       "technician": "Mahen/Buddika",
       "details": "A/C services",
